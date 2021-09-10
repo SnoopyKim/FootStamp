@@ -1,11 +1,56 @@
 package project.android.footstamp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import project.android.footstamp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var mapFragment: Fragment
+    private lateinit var galleryFragment: Fragment
+    private lateinit var settingFragment: Fragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        mapFragment = MapFragment();
+        galleryFragment = GalleryFragment();
+        settingFragment = SettingFragment();
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_container, mapFragment)
+        transaction.commit()
+
+        with(binding) {
+            bottomNavigationView.setOnItemSelectedListener {
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                val fragment = when(it.itemId) {
+                    R.id.first -> mapFragment
+                    R.id.second -> galleryFragment
+                    R.id.third -> settingFragment
+                    else -> mapFragment
+                }
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+                Toast.makeText(applicationContext, it.title, Toast.LENGTH_SHORT).show()
+                true
+            }
+        }
     }
+
+//    private fun switchFragment(id: Int) {
+//        val fragment = when(id) {
+//            R.id.first -> mapFragment
+//            R.id.second -> galleryFragment
+//            R.id.third -> settingFragment
+//            else -> mapFragment
+//        }
+//        fragmentTransaction.replace(R.id.main_fragment, fragment)
+//        fragmentTransaction.commit()
+//    }
 }
