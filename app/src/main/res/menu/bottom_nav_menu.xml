@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/first"
-        android:title="First"
+        android:id="@+id/map"
+        android:title="@string/map"
         android:icon="@drawable/ic_map"/>
     <item
-        android:id="@+id/second"
-        android:title="Second"
+        android:id="@+id/gallery"
+        android:title="@string/gallery"
         android:icon="@drawable/ic_collections"/>
     <item
-        android:id="@+id/third"
-        android:title="Third"
+        android:id="@+id/setting"
+        android:title="@string/setting"
         android:icon="@drawable/ic_settings"/>
 
 </menu>
