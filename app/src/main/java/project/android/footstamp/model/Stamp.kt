@@ -3,14 +3,13 @@ package project.android.footstamp.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "stamps")
 data class Stamp(
     @PrimaryKey val id: String,
 
     var area: String,
-    var date: Date,
+    var date: String,
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     var image: ByteArray,

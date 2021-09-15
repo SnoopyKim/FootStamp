@@ -1,4 +1,4 @@
-package project.android.footstamp
+package project.android.footstamp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import project.android.footstamp.databinding.FragmentMapBinding
 import project.android.footstamp.viewmodel.StampViewModel
 
@@ -17,20 +20,25 @@ class MapFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val stampViewModel = StampViewModel(requireActivity().application)
-        stampViewModel.getAll().observe(this, Observer { stamps ->
-            binding.textview.text = stamps.toString()
-        })
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val stampViewModel = StampViewModel(requireActivity().application)
+        CoroutineScope(Dispatchers.Main).launch {
+            stampViewModel.getAll().observe(viewLifecycleOwner, Observer { stamps ->
+                binding.textview.text = stamps.toString()
+            })
+        }
     }
 
     override fun onDestroyView() {

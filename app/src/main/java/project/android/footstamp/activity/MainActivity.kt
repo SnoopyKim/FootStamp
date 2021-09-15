@@ -1,16 +1,22 @@
-package project.android.footstamp
+package project.android.footstamp.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityMainBinding
+import project.android.footstamp.fragment.GalleryFragment
+import project.android.footstamp.fragment.MapFragment
+import project.android.footstamp.fragment.PostFragment
+import project.android.footstamp.fragment.SettingFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var mapFragment: Fragment
     private lateinit var galleryFragment: Fragment
+    private lateinit var postFragment: Fragment
     private lateinit var settingFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         mapFragment = MapFragment();
         galleryFragment = GalleryFragment();
+        postFragment = PostFragment();
         settingFragment = SettingFragment();
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_container, mapFragment)
@@ -38,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val fragment = when(id) {
             R.id.map -> mapFragment
             R.id.gallery -> galleryFragment
+            R.id.post -> postFragment
             R.id.setting -> settingFragment
             else -> mapFragment
         }
