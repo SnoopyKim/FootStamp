@@ -5,12 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import project.android.footstamp.databinding.FragmentMapBinding
+import project.android.footstamp.viewmodel.StampViewModel
 
 
 class MapFragment : Fragment() {
+    private var _binding: FragmentMapBinding? = null
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val stampViewModel = StampViewModel(requireActivity().application)
+        stampViewModel.getAll().observe(this, Observer { stamps ->
+            binding.textview.text = stamps.toString()
+        })
     }
 
     override fun onCreateView(
@@ -18,19 +29,16 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MapFragment().apply {

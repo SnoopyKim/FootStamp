@@ -8,6 +8,7 @@ import project.android.footstamp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     private lateinit var mapFragment: Fragment
     private lateinit var galleryFragment: Fragment
     private lateinit var settingFragment: Fragment
