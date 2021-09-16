@@ -3,13 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.26358695652173914" />
-        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.20208333333333334" />
-        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Ryclia/Desktop/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.5494791666666666" />
+        <entry key="..\:/Users/Ryclia/Desktop/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.5390625" />
+        <entry key="..\:/Users/Ryclia/Desktop/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.5390625" />
+        <entry key="..\:/Users/Ryclia/Desktop/FootStamp/app/src/main/res/layout/fragment_setting.xml" value="0.5494791666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
