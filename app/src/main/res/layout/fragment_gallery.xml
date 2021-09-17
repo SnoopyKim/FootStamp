@@ -51,7 +51,7 @@
         android:layout_marginTop="573dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
-        android:src="@drawable/plus_icon"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.905"
