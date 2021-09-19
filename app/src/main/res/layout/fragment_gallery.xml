@@ -7,14 +7,14 @@
     tools:context=".fragment.GalleryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/GalleryRCView"
         android:layout_width="409dp"
         android:layout_height="654dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="1dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="409dp"
         android:layout_height="75dp"
         android:orientation="horizontal"
@@ -30,7 +30,7 @@
             android:fontFamily="@font/jua"
             android:text="지역별 보기"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:backgroundTint="#FF9800" />
+            app:backgroundTint="#8BC34A" />
 
         <Button
             android:id="@+id/button4"
@@ -38,9 +38,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/jua"
-            android:text="앨범 보기"
+            android:text="전체 사진 보기"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:backgroundTint="#FF9800" />
+            app:backgroundTint="#8BC34A" />
+
     </LinearLayout>
 
     <ImageButton
@@ -51,12 +52,12 @@
         android:layout_marginTop="573dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@android:drawable/ic_menu_upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/GalleryRCView"
         app:layout_constraintVertical_bias="0.096" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
