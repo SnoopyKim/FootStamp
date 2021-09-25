@@ -9,26 +9,42 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import project.android.footstamp.R
 
-public class GalleryVIewAdapter(val items: MutableList<String>) : RecyclerView.Adapter<GalleryVIewAdapter.ViewHolder>(){
+public class GalleryVIewAdapter(val List : MutableList<ContentsModel>) : RecyclerView.Adapter<GalleryVIewAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryVIewAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_stamp_list,parent,false)
 
         return ViewHolder(view)
     }
 
+    interface ItemClick{
+        fun onClick(view : View, Position: Int)
+    }
+    var itemClick : ItemClick? = null
+
     override fun onBindViewHolder(holder: GalleryVIewAdapter.ViewHolder, position: Int) {
-        holder.bindItems(items[position])
+        if (itemClick != null){
+            holder?.itemView.setOnClickListener{ view->
+                itemClick!!.onClick(view,position)
+            }
+        }
+        holder.bindItems(List[position])
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return List.size
     }
 
     inner class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : String){
 
-            val Gallery_text = itemView.findViewById<TextView>(R.id.ItemStampText)
-            Gallery_text.text = item
+        fun bindItems(item : ContentsModel){
+
+            val GalText = itemView.findViewById<TextView>(R.id.ItemStampText)
+            val GalMemo = itemView.findViewById<TextView>(R.id.ItemStampMemo)
+            val GalImg = itemView.findViewById<ImageView>(R.id.ItemStampImage)
+
+            GalText.text = item.GalStampText
+            GalMemo.text = item.GalStampMemo
+
 
         }
     }

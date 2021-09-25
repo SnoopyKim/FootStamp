@@ -12,6 +12,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
+<!--            시작할때 스플래시를 먼저 실행-->
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
