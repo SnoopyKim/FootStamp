@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ItemStampImage"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="5dp"
+        android:background="#3200BCD4"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/ItemStampText"
+        android:layout_width="352dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/jua"
+        android:text="Place, Date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="@+id/ItemStampImage"
+        app:layout_constraintTop_toTopOf="@+id/ItemStampImage" />
+
+    <TextView
+        android:id="@+id/ItemStampMemo"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/jua"
+        android:text="memo"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/ItemStampImage"
+        app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ItemStampImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
