@@ -1,12 +1,12 @@
 package project.android.footstamp.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import project.android.footstamp.model.AppDatabase
 import project.android.footstamp.model.Stamp
 
-class StampViewModel(application: Application) : AndroidViewModel(application){
+class StampViewModel(application: Application) : ViewModel() {
     private val db = AppDatabase.getInstance(application)!!
 
     fun getAll(): LiveData<List<Stamp>> {
@@ -25,4 +25,7 @@ class StampViewModel(application: Application) : AndroidViewModel(application){
         db.stampDao().delete(stamp)
     }
 
+    fun reset() {
+
+    }
 }
