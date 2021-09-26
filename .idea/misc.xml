@@ -3,20 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/radius.xml" value="0.26979166666666665" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.10520833333333333" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.25317028985507245" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.264" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.10520833333333333" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
-        <entry key="..\:/FootStamp/app/src/main/res/drawable/radius.xml" value="0.3101851851851852" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.5536458333333333" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_splash.xml" value="0.3104166666666667" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.41203703703703703" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.5" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_view.xml" value="0.41203703703703703" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.5" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/radius.xml" value="0.14907407407407408" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.26358695652173914" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.20208333333333334" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.25" />

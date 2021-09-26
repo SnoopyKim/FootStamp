@@ -5,17 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import project.android.footstamp.R
+import project.android.footstamp.activity.SplashActivity
 import project.android.footstamp.activity.ViewActivity
-import project.android.footstamp.adapter.ContentsModel
-import project.android.footstamp.adapter.GalleryVIewAdapter
+import project.android.footstamp.adapter.GalleryViewAdapter
+import project.android.footstamp.databinding.FragmentGalleryBinding
+import project.android.footstamp.model.Stamp
+import project.android.footstamp.viewmodel.StampViewModel
 
 class GalleryFragment : Fragment() {
-    val items = mutableListOf<ContentsModel>()
+    var items = mutableListOf<Stamp>()
+    lateinit var adapter : GalleryViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +38,13 @@ class GalleryFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_gallery, container, false)
-
-
-        items.add(ContentsModel("날짜 위치",
-                                 "메모",
-                                   "사진"))
-
         val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
-        val rvAdapter = GalleryVIewAdapter(items)
+        adapter = GalleryViewAdapter(items)
 
-        rv.adapter = rvAdapter
+        rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(context,3)
 
-        rvAdapter.itemClick = object : GalleryVIewAdapter.ItemClick{
+            adapter.itemClick = object : GalleryViewAdapter.ItemClick{
             override fun onClick(view: View, Position: Int) {
                 val intent = Intent(context, ViewActivity::class.java)
                 startActivity(intent)
@@ -52,6 +54,22 @@ class GalleryFragment : Fragment() {
 
         return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val stampViewModel = StampViewModel(requireActivity().application)
+        CoroutineScope(Dispatchers.Main).launch {
+            stampViewModel.getAll().observe(viewLifecycleOwner, { stamps ->
+             adapter.setList(stamps)
+            })
+        }
+        val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
+        addBtn.setOnClickListener {
+            val intent = Intent(context, SplashActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
 
         fun newInstance(param1: String, param2: String) =
             GalleryFragment().apply {
