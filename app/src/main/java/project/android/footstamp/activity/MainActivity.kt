@@ -1,6 +1,8 @@
 package project.android.footstamp.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,6 +15,8 @@ import project.android.footstamp.fragment.SettingFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    //두번 뒤로가기시 앱 종료
+    private var isDouble = false
 
     private lateinit var mapFragment: Fragment
     private lateinit var galleryFragment: Fragment
@@ -53,5 +57,18 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+    override fun onBackPressed() {
+        Log.d("Mainactvity","backbutton")
+        if (isDouble == true){
+            finish()
+        }
+        isDouble = true
+        Toast.makeText(this,"종료하시려면 뒤로가기버튼을 두번 눌러주세요", Toast.LENGTH_SHORT)
+
+        Handler().postDelayed(Runnable {
+            isDouble = false
+        }, 2000)
     }
 }
