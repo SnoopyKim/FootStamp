@@ -22,8 +22,8 @@ class StampViewModel(private val repository: StampRepository) : ViewModel() {
     private fun insertAll(stamps: List<Stamp>) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertAll(stamps)
     }
-    fun insertItem(area: String, date: Date, image: ByteArray, memo: String) {
-        insert(getStampEntry(area, date, image, memo))
+    fun insertItem(area: String, district: String, date: Date, image: ByteArray, memo: String) {
+        insert(getStampEntry(area, district, date, image, memo))
     }
 
     fun update(stamp: Stamp) = viewModelScope.launch(Dispatchers.IO) {
@@ -35,11 +35,14 @@ class StampViewModel(private val repository: StampRepository) : ViewModel() {
     }
 
 
-    private fun getStampEntry(area: String, date: Date, image: ByteArray, memo: String): Stamp {
+    private fun getStampEntry(area: String, district: String, date: Date, image: ByteArray, memo: String): Stamp {
+        val strDate = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date)
+        val id = "$area-$district-$strDate-${allStamps.value?.filter { it.area == area && it.district == district }?.size}"
         return Stamp(
-            "$area-$date-${allStamps.value?.size}",
+            id,
             area,
-            SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date),
+            district,
+            strDate,
             image,
             memo
         )

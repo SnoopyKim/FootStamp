@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -12,6 +14,8 @@ import androidx.fragment.app.activityViewModels
 import project.android.footstamp.R
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentPostBinding
+import project.android.footstamp.utils.getAreas
+import project.android.footstamp.utils.getDistrictsFromArea
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 import java.util.*
@@ -36,6 +40,8 @@ class PostFragment : Fragment() {
     }
     private lateinit var imageBuffer: ByteArray
 
+    private var area = getAreas()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,9 +64,30 @@ class PostFragment : Fragment() {
                 intent.type = "image/*"
                 pickImage.launch(intent)
             }
+
+            spnArea.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+            spnArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    spnDistrict.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, getDistrictsFromArea(area[position]))
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+            spnDistrict.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, getDistrictsFromArea(spnArea.selectedItem.toString()))
+
             btnPost.setOnClickListener {
                 stampViewModel.insertItem(
-                    etArea.text.toString(),
+                    spnArea.selectedItem.toString(),
+                    spnDistrict.selectedItem.toString(),
                     Date(),
                     imageBuffer,
                     etMemo.text.toString()
@@ -74,7 +101,8 @@ class PostFragment : Fragment() {
         imageBuffer = ByteArray(0)
         binding.apply {
             ivImageSearch.setImageResource(R.drawable.ic_image_search)
-            etArea.text.clear()
+            spnArea.setSelection(0)
+            spnDistrict.setSelection(0)
             etMemo.text.clear()
         }
     }
