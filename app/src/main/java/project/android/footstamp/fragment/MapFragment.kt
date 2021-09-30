@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentMapBinding
+import project.android.footstamp.utils.getAreas
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 
@@ -25,8 +26,12 @@ class MapFragment : Fragment() {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
+    private val areaList = getAreas()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(
@@ -40,6 +45,8 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.areas.text = areaList.toString()
 
         stampViewModel.allStamps.observe(viewLifecycleOwner, Observer { stamps ->
             binding.textview.text = "Data size: ${stamps.size}"
