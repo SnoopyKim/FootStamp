@@ -7,18 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import project.android.footstamp.R
+import project.android.footstamp.StampApplication
 import project.android.footstamp.activity.ViewActivity
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.viewmodel.StampViewModel
+import project.android.footstamp.viewmodel.StampViewModelFactory
 
 class GalleryFragment : Fragment() {
+
+    private val stampViewModel: StampViewModel by activityViewModels {
+        StampViewModelFactory(
+            (activity?.application as StampApplication).repository
+        )
+    }
+
     var items = mutableListOf<Stamp>()
     lateinit var adapter: GalleryViewAdapter
 
@@ -56,13 +63,10 @@ class GalleryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val stampViewModel = StampViewModel(requireActivity().application)
-        CoroutineScope(Dispatchers.Main).launch {
-            stampViewModel.getAll().observe(viewLifecycleOwner, { stamps ->
-                adapter.setList(stamps)
-                Log.d("GalleryFragment", "observe: ${stamps.size} ${items.size} ${adapter.itemCount}")
-            })
-        }
+        stampViewModel.allStamps.observe(viewLifecycleOwner, { stamps ->
+            adapter.setList(stamps)
+            Log.d("GalleryFragment", "observe: ${stamps.size} ${items.size} ${adapter.itemCount}")
+        })
     }
 
     fun newInstance(param1: String, param2: String) =
