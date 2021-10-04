@@ -3,55 +3,43 @@ package project.android.footstamp.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityMainBinding
-import project.android.footstamp.fragment.GalleryFragment
-import project.android.footstamp.fragment.MapFragment
-import project.android.footstamp.fragment.PostFragment
-import project.android.footstamp.fragment.SettingFragment
 
 class MainActivity : AppCompatActivity() {
+    val QUIT_INTERVAL: Long = 2000
+
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var mapFragment: Fragment
-    private lateinit var galleryFragment: Fragment
-    private lateinit var postFragment: Fragment
-    private lateinit var settingFragment: Fragment
+    private lateinit var navController: NavController
+
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mapFragment = MapFragment();
-        galleryFragment = GalleryFragment();
-        postFragment = PostFragment();
-        settingFragment = SettingFragment();
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fragment_container, mapFragment)
-        transaction.commit()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        with(binding) {
-            bottomNavigationView.setOnItemSelectedListener {
-                switchFragment(it.itemId)
-                Toast.makeText(applicationContext, it.title, Toast.LENGTH_SHORT).show()
-                true
-            }
-        }
+        binding.bottomNavigationView.setupWithNavController(navController)
+
     }
 
-    private fun switchFragment(id: Int) {
-        val fragment = when(id) {
-            R.id.map -> mapFragment
-            R.id.gallery -> galleryFragment
-            R.id.post -> postFragment
-            R.id.setting -> settingFragment
-            else -> mapFragment
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - backPressedTime < QUIT_INTERVAL) finish()
+        else {
+            backPressedTime = currentTime
+            Toast.makeText(this,  "2초 내 한번 더 누르시면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
         }
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
     }
 }
