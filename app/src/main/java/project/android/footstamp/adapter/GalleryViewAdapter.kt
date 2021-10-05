@@ -2,6 +2,7 @@ package project.android.footstamp.adapter
 
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,10 +30,13 @@ public class GalleryViewAdapter(private var list : MutableList<Stamp>) : Recycle
                 itemClick!!.onClick(view,position)
             }
         }
+
+        Log.d("GalleryViewAdapter", list[position].id)
         holder.bindItems(list[position])
     }
 
-    fun setList(newList : List<Stamp>) {
+    fun setList(newList: List<Stamp>) {
+
         list = newList as MutableList<Stamp>
         notifyDataSetChanged()
     }
@@ -52,10 +56,8 @@ public class GalleryViewAdapter(private var list : MutableList<Stamp>) : Recycle
             GalText.text = "${item.area} ${item.date}"
             GalMemo.text = item.memo
 
-            val bitmap = BitmapFactory.decodeByteArray(item.image,0,item.image.size)
+            val bitmap = BitmapFactory.decodeByteArray(item.image, 0, item.image.size)
             GalImg.setImageBitmap(bitmap)
-
-
         }
     }
 }

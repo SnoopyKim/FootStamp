@@ -55,12 +55,13 @@ class ViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val stampViewModel = StampViewModel(requireActivity().application)
-        CoroutineScope(Dispatchers.Main).launch {
-            stampViewModel.getAll().observe(viewLifecycleOwner, { stamps ->
-                galadapter.setList(stamps)
-            })
-        }
+        //데이터베이스 삭제해서 지워둡니다
+//        val stampViewModel = StampViewModel(requireActivity().application)
+//        CoroutineScope(Dispatchers.Main).launch {
+//            stampViewModel.getAll().observe(viewLifecycleOwner, { stamps ->
+//                galadapter.setList(stamps)
+//            })
+//        }
         val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
         addBtn.setOnClickListener {
             val intent = Intent(context, SplashActivity::class.java)
