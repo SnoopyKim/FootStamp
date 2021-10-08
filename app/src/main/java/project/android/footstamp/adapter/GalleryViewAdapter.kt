@@ -1,6 +1,7 @@
 package project.android.footstamp.adapter
 
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,11 +30,13 @@ public class GalleryViewAdapter(private var list : MutableList<Stamp>) : Recycle
                 itemClick!!.onClick(view,position)
             }
         }
+
         Log.d("GalleryViewAdapter", list[position].id)
         holder.bindItems(list[position])
     }
 
     fun setList(newList: List<Stamp>) {
+
         list = newList as MutableList<Stamp>
         notifyDataSetChanged()
     }

@@ -1,56 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.GalleryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/GalleryRCView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/GalleryTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="#FF00BCD4"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:tabTextColor="#00BCD4">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역별 보기" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜별 보기" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.486" />
+        android:layout_marginTop="50dp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="75dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/foot_logo2"
+        app:backgroundTint="#00BCD4"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/jua"
-            android:text="지역별 보기"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:backgroundTint="#00BCD4" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/jua"
-            android:text="사진 편집"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:backgroundTint="#00BCD4" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    "
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
