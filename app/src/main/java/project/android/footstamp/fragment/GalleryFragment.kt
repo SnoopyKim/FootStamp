@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import project.android.footstamp.R
-import project.android.footstamp.R.id.pager
 import project.android.footstamp.adapter.PagerAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import project.android.footstamp.R.id.*
 import project.android.footstamp.StampApplication
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.model.Stamp
@@ -22,6 +24,9 @@ class GalleryFragment : Fragment() {
 
     var items = mutableListOf<Stamp>()
     lateinit var adapter: GalleryViewAdapter
+    lateinit var tabLayout: TabLayout
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +42,18 @@ class GalleryFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_gallery, container, false)
 
-        //뷰페이저 미구현
-        val ViewPager2 = view.findViewById<ViewPager2>(pager)
-//        ViewPager2.adapter = PagerAdapter(GalleryFragment())
+        val Gpager = view.findViewById<ViewPager2>(R.id.pager)
+        val fragmentList = listOf(ViewFragment(),ViewFragment2())
+        val adapter = PagerAdapter(requireActivity())
+        adapter.fragments = fragmentList
+        Gpager.adapter = adapter
+
+
+        val Gtab = view.findViewById<TabLayout>(R.id.GalleryTab)
+        TabLayoutMediator(Gtab,Gpager){tab, position -> tab.text = "Tab"}
+            .attach()
+
+
 
 
         return view

@@ -26,7 +26,7 @@ class ViewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        }
+    }
 
 
     override fun onCreateView(
@@ -62,16 +62,16 @@ class ViewFragment : Fragment() {
 //                galadapter.setList(stamps)
 //            })
 //        }
-        val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
-        addBtn.setOnClickListener {
-            val intent = Intent(context, SplashActivity::class.java)
-            startActivity(intent)
-        }
+//        val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
+//        addBtn.setOnClickListener {
+//            val intent = Intent(context, SplashActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
-        fun newInstance(param1: String, param2: String) =
-            ViewFragment().apply {
+    fun newInstance(param1: String, param2: String) =
+        ViewFragment().apply {
 
-                }
-            }
+        }
+}
 

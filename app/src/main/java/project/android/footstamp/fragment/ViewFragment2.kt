@@ -35,21 +35,21 @@ class ViewFragment2 : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.fragment_view2, container, false)
-        // Inflate the layout for this fragment
-        val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
+//         Inflate the layout for this fragment
+//        val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
+//
+//        galadapter = GalleryViewAdapter(items)
+//
+//        rv.adapter = galadapter
+//        rv.layoutManager = LinearLayoutManager(context)
 
-        galadapter = GalleryViewAdapter(items)
-
-        rv.adapter = galadapter
-        rv.layoutManager = LinearLayoutManager(context)
-
-        galadapter.itemClick = object : GalleryViewAdapter.ItemClick{
-            override fun onClick(view: View, Position: Int) {
-                val intent = Intent(context, ViewFragment2::class.java)
-                startActivity(intent)
-            }
-
-        }
+//        galadapter.itemClick = object : GalleryViewAdapter.ItemClick{
+//            override fun onClick(view: View, Position: Int) {
+//                val intent = Intent(context, ViewFragment2::class.java)
+//                startActivity(intent)
+//            }
+//
+//        }
         return view
 
     }
@@ -63,11 +63,11 @@ class ViewFragment2 : Fragment() {
 //                galadapter.setList(stamps)
 //            })
 //        }
-        val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
-        addBtn.setOnClickListener {
-            val intent = Intent(context, SplashActivity::class.java)
-            startActivity(intent)
-        }
+//        val addBtn = view.findViewById<FloatingActionButton>(R.id.addBtn)
+//        addBtn.setOnClickListener {
+//            val intent = Intent(context, SplashActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     fun newInstance(param1: String, param2: String) =
