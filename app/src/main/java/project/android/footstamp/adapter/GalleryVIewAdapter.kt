@@ -53,7 +53,7 @@ public class GalleryViewAdapter(private var list : MutableList<Stamp>) : Recycle
             GalText.text = "${item.area} ${item.date}"
             GalMemo.text = item.memo
 
-            val bitmap = BitmapFactory.decodeByteArray(item.image, 0, item.image.size)
+            val bitmap = item.image?.size?.let { BitmapFactory.decodeByteArray(item.image, 0, it) }
             GalImg.setImageBitmap(bitmap)
         }
     }

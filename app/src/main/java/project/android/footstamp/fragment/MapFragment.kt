@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.transition.Fade
+import androidx.transition.TransitionManager
+import project.android.footstamp.R
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentMapBinding
 import project.android.footstamp.utils.getAreas
@@ -45,6 +49,21 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val labelText = TextView(context).apply {
+            text = "Label"
+            id = R.id.text
+        }
+        binding.animLayout.addView(labelText)
+        binding.animLayout.setOnClickListener {
+            if(labelText.visibility == View.VISIBLE){
+                TransitionManager.beginDelayedTransition(binding.animLayout, Fade(Fade.OUT))
+                labelText.visibility = View.GONE;
+            } else {
+                TransitionManager.beginDelayedTransition(binding.animLayout, Fade(Fade.IN))
+                labelText.visibility = View.VISIBLE;
+            }
+        }
 
         binding.areas.text = areaList.toString()
 
