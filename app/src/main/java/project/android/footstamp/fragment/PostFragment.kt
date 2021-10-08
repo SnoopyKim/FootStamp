@@ -1,27 +1,33 @@
 package project.android.footstamp.fragment
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.fragment.app.activityViewModels
 import project.android.footstamp.R
+import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentPostBinding
-import project.android.footstamp.model.Stamp
+import project.android.footstamp.utils.getAreas
+import project.android.footstamp.utils.getDistrictsFromArea
 import project.android.footstamp.viewmodel.StampViewModel
-import java.text.SimpleDateFormat
-import java.time.LocalDate
+import project.android.footstamp.viewmodel.StampViewModelFactory
 import java.util.*
 
 class PostFragment : Fragment() {
+
+    private val stampViewModel: StampViewModel by activityViewModels {
+        StampViewModelFactory(
+            (activity?.application as StampApplication).repository
+        )
+    }
+
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
 
@@ -32,20 +38,13 @@ class PostFragment : Fragment() {
             binding.ivImageSearch.setImageURI(uri)
         }
     }
+    private lateinit var imageBuffer: ByteArray
 
-    private lateinit var stampViewModel: StampViewModel
-    private var postCount: Int = 0
-    private var imageBuffer: ByteArray = ByteArray(0)
+    private var area = getAreas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
-        stampViewModel = StampViewModel(requireActivity().application)
-        CoroutineScope(Dispatchers.Main).launch {
-            stampViewModel.getAll().observe(viewLifecycleOwner, Observer { stamps -> postCount = stamps.size })
-        }
     }
 
     override fun onCreateView(
@@ -58,31 +57,53 @@ class PostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding) {
+        resetUI()
+        binding.apply {
             ivImageSearch.setOnClickListener{
                 val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
                 pickImage.launch(intent)
             }
-            btnPost.setOnClickListener {
-                val area = etArea.text.toString(); val memo = etMemo.text.toString()
-                val date = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) LocalDate.now().toString() else SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(
-                    Date())
 
-                val data = Stamp(
-                    id = "$area-$date-$postCount",
-                    area,
-                    date,
-                    imageBuffer,
-                    memo
-                )
-                CoroutineScope(Dispatchers.IO).launch {
-                    stampViewModel.insert(data)
+            spnArea.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+            spnArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    spnDistrict.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, getDistrictsFromArea(area[position]))
+
                 }
-                ivImageSearch.setImageResource(R.drawable.ic_image_search)
-                etArea.text.clear()
-                etMemo.text.clear()
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
             }
+            spnDistrict.adapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, getDistrictsFromArea(spnArea.selectedItem.toString()))
+
+            btnPost.setOnClickListener {
+                stampViewModel.insertItem(
+                    spnArea.selectedItem.toString(),
+                    spnDistrict.selectedItem.toString(),
+                    Date(),
+                    imageBuffer,
+                    etMemo.text.toString()
+                )
+                resetUI()
+            }
+        }
+    }
+
+    private fun resetUI() {
+        imageBuffer = ByteArray(0)
+        binding.apply {
+            ivImageSearch.setImageResource(R.drawable.ic_image_search)
+            spnArea.setSelection(0)
+            spnDistrict.setSelection(0)
+            etMemo.text.clear()
         }
     }
 
@@ -91,24 +112,7 @@ class PostFragment : Fragment() {
         _binding = null
     }
 
-
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-//        if (requestCode == Companion.REQUEST_IMAGE_OPEN && resultCode == Activity.RESULT_OK) {
-//            val fullPhotoUri: Uri = data.data
-//            // Do work with full size photo saved at fullPhotoUri
-//            ...
-//        }
-//    }
-
     companion object {
-//        const val REQUEST_IMAGE_OPEN = 1
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PostFragment().apply {
-
-            }
 
 
     }

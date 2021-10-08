@@ -1,18 +1,25 @@
 package project.android.footstamp.model
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StampDao {
+
+    @Query("SELECT * FROM stamps WHERE id = :id")
+    fun getStamp(id: Int): Flow<Stamp>
+
     @Query("SELECT * FROM stamps")
-    fun getAll(): LiveData<List<Stamp>>
+    fun getStamps(): Flow<List<Stamp>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(stamp: Stamp)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg stamps: Stamp)
+
+    @Update
+    suspend fun update(stamp: Stamp)
 
     @Delete
     fun delete(stamp: Stamp)

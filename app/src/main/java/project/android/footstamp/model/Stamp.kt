@@ -9,10 +9,11 @@ data class Stamp(
     @PrimaryKey val id: String,
 
     var area: String,
+    var district: String,
     var date: String,
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    var image: ByteArray,
+    var image: ByteArray?,
 
     var memo: String? = null
 

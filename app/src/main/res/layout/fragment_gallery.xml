@@ -1,62 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.GalleryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="409dp"
-        android:layout_height="654dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="75dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/GalleryTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="#FF00BCD4"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:tabTextColor="#00BCD4">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/jua"
-            android:text="지역별 보기"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:backgroundTint="#FF9800" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역별 보기" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/jua"
-            android:text="앨범 보기"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:backgroundTint="#FF9800" />
-    </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜별 보기" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="573dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitXY"
-        android:src="@drawable/plus_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.905"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.096" />
+    </com.google.android.material.tabs.TabLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/foot_logo2"
+        app:backgroundTint="#00BCD4"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    "
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
