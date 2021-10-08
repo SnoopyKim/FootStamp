@@ -2,21 +2,17 @@ package project.android.footstamp.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import project.android.footstamp.R
 import project.android.footstamp.activity.SplashActivity
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.model.Stamp
-import project.android.footstamp.viewmodel.StampViewModel
 
 class ViewFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -67,6 +63,7 @@ class ViewFragment : Fragment() {
             val intent = Intent(context, SplashActivity::class.java)
             startActivity(intent)
         }
+
     }
 
         fun newInstance(param1: String, param2: String) =
