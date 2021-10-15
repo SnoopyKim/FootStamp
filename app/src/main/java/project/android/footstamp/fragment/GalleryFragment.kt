@@ -24,7 +24,7 @@ class GalleryFragment : Fragment() {
 
     var items = mutableListOf<Stamp>()
     lateinit var adapter: GalleryViewAdapter
-    lateinit var tabLayout: TabLayout
+
 
 
 
@@ -50,7 +50,12 @@ class GalleryFragment : Fragment() {
 
 
         val Gtab = view.findViewById<TabLayout>(R.id.GalleryTab)
-        TabLayoutMediator(Gtab,Gpager){tab, position -> tab.text = "Tab"}
+        TabLayoutMediator(Gtab,Gpager){tab, position ->
+        if(position == 0){
+            tab.text = "지역별 보기"
+        } else {
+            tab.text = "날짜별 보기"}
+        }
             .attach()
 
 

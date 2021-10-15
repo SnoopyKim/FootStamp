@@ -13,7 +13,7 @@ data class Stamp(
     var date: String,
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    var image: ByteArray,
+    var image: ByteArray?,
 
     var memo: String? = null
 
