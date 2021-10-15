@@ -5,12 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.transition.ChangeBounds
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.google.android.material.button.MaterialButton
@@ -56,22 +56,31 @@ class MapFragment : Fragment() {
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
-                findViewById<LinearLayout>(R.id.btn_east).setOnClickListener {
-                    selectedArea = ((it as LinearLayout).getChildAt(0) as TextView).text.toString()
-                    TransitionManager.go(sceneDistrict, ChangeBounds())
+                findViewById<ConstraintLayout>(R.id.btn_east).setOnClickListener {
+                    selectedArea =
+                        ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
+                    TransitionManager.go(sceneDistrict)
                 }
-                findViewById<Button>(R.id.btn_west).setOnClickListener {
-                    selectedArea = (it as Button).text.toString()
-                    TransitionManager.go(sceneDistrict) }
             }
         }
         sceneDistrict = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_district_east, requireContext())
         sceneDistrict.setEnterAction {
             Log.d(javaClass.name, "selectedArea: $selectedArea")
+            val layout = sceneDistrict.sceneRoot.findViewById<LinearLayout>(R.id.ll_btn_wrapper)
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 5, 0, 5) }
             val districts = getDistrictsFromArea(selectedArea)
             districts.forEach {
-                val btn = MaterialButton(requireContext()).apply { text = it }
-//                sceneDistrict.sceneRoot.findViewById<LinearLayout>(R.id.container_district).addView(btn)
+                val btn = MaterialButton(requireContext()).apply {
+                    id=View.generateViewId()
+                    text = it
+                    layoutParams = params
+                }
+                layout.addView(btn)
+            }
+            sceneDistrict.sceneRoot.apply {
+                findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
+                    TransitionManager.go(sceneArea)
+                }
             }
         }
         return binding.root
