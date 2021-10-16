@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.transition.Scene
@@ -39,6 +40,7 @@ class MapFragment : Fragment() {
     lateinit var sceneDistrict: Scene
 
     private lateinit var selectedArea: String
+    private var selectedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,34 +55,40 @@ class MapFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         sceneRoot = binding.sceneRoot
+
+        // 구역 선택 장면(Scene) 설정
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
-                findViewById<ConstraintLayout>(R.id.btn_east).setOnClickListener {
-                    selectedArea =
-                        ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
-                    TransitionManager.go(sceneDistrict)
+                // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
+                findViewById<ConstraintLayout>(R.id.container_area).children.forEach { button ->
+                    button.setOnClickListener {
+                        selectedId = it.id
+                        selectedArea = ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
+                        TransitionManager.go(sceneDistrict)
+                    }
                 }
             }
         }
-        sceneDistrict = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_district_east, requireContext())
+
+        // 자치구 선택 장면(Scene) 설정
+        sceneDistrict = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_district, requireContext())
         sceneDistrict.setEnterAction {
-            Log.d(javaClass.name, "selectedArea: $selectedArea")
-            val layout = sceneDistrict.sceneRoot.findViewById<LinearLayout>(R.id.ll_btn_wrapper)
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 5, 0, 5) }
-            val districts = getDistrictsFromArea(selectedArea)
-            districts.forEach {
-                val btn = MaterialButton(requireContext()).apply {
-                    id=View.generateViewId()
-                    text = it
-                    layoutParams = params
-                }
-                layout.addView(btn)
-            }
+            Log.d(javaClass.name, "selectedId: $selectedId | selectedArea: $selectedArea")
+
             sceneDistrict.sceneRoot.apply {
+                // 전체 화면에 선택했던 id 부여
+                findViewById<ConstraintLayout>(R.id.container_area).getChildAt(0).id = selectedId
+                // 뒤로가기 버튼 설정
                 findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
                     TransitionManager.go(sceneArea)
                 }
+                // 중앙 정렬된 레이아웃에 해당 구역에 맞는 자치구 버튼들 생성
+                val layout = findViewById<LinearLayout>(R.id.ll_btn_wrapper)
+                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 5, 0, 5) }
+                val districts = getDistrictsFromArea(selectedArea)
+                districts.forEach { addButtonOnLinearLayout(layout, it, params) }
+
             }
         }
         return binding.root
@@ -96,4 +104,12 @@ class MapFragment : Fragment() {
         _binding = null
     }
 
+    fun addButtonOnLinearLayout(layout: LinearLayout, title: String, params: LinearLayout.LayoutParams) {
+        val btn = MaterialButton(requireContext()).apply {
+            id = View.generateViewId()
+            text = title
+            layoutParams = params
+        }
+        layout.addView(btn)
+    }
 }
