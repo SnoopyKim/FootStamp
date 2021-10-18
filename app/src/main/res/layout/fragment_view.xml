@@ -12,12 +12,11 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioArea"
-            android:text="남부"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/viewSpn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:minHeight="48dp"/>
 
         <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
             android:id="@+id/group_choices"
@@ -32,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                app:tbgMarkerColor="@color/maincolor"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:text="동작구" />
@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                app:tbgMarkerColor="@color/maincolor"
                 android:layout_marginRight="10dp"
                 android:text="관악구" />
 
@@ -49,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                app:tbgMarkerColor="@color/maincolor"
                 android:layout_marginRight="10dp"
                 android:text="서초구" />
 
@@ -56,6 +58,7 @@
                 android:id="@+id/choice_d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tbgMarkerColor="@color/maincolor"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:text="강남구" />
@@ -64,6 +67,7 @@
                 android:id="@+id/choice_e"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tbgMarkerColor="@color/maincolor"
                 android:layout_marginTop="5dp"
                 android:text="송파구" />
 

@@ -31,6 +31,7 @@
             android:id="@+id/choice_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tbgMarkerColor="@color/maincolor"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
@@ -39,6 +40,7 @@
         <com.nex3z.togglebuttongroup.button.CircularToggle
             android:id="@+id/choice_b"
             android:layout_width="wrap_content"
+            app:tbgMarkerColor="@color/maincolor"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
@@ -48,6 +50,7 @@
             android:id="@+id/choice_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tbgMarkerColor="@color/maincolor"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:text="10월" />

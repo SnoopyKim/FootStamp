@@ -32,6 +32,8 @@ class ViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_view, container, false)
         val rv : RecyclerView = view.findViewById(R.id.GalleryRCView)
 
+
+
         val items = ArrayList<String>()
         items.add("a")
         items.add("b")

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SplashActivity">
+    tools:context=".activity.SplashActivity"
+    android:background="@color/maincolor">
 
     <TextView
         android:id="@+id/textView"
@@ -13,7 +14,7 @@
         android:fontFamily="@font/jua"
         android:text="발도장"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#03A9F4"
+        android:textColor="@color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/jua"
         android:text="나만의 작은 여행 앨범"
-        android:textColor="#3C3C3C"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,28 +39,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.672" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="128dp"
-        android:layout_height="209dp"
-        android:rotationY="180"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.367"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/foot_logo2" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="128dp"
-        android:layout_height="209dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.258"
-        app:srcCompat="@drawable/foot_logo2" />
+        app:layout_constraintVertical_bias="0.339"
+        app:srcCompat="@drawable/stamplogo2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
