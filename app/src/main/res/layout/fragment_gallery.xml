@@ -10,9 +10,9 @@
         android:id="@+id/GalleryTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="#FF00BCD4"
+        app:tabIndicatorColor="@color/maincolor"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:tabTextColor="#00BCD4">
+        app:tabTextColor="@color/maincolor">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -39,8 +39,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/foot_logo2"
-        app:backgroundTint="#00BCD4"
+        app:backgroundTint="@color/maincolor"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    "
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
