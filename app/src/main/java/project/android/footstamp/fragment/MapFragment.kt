@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.transition.Scene
@@ -18,7 +16,6 @@ import com.google.android.material.button.MaterialButton
 import project.android.footstamp.R
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentMapBinding
-import project.android.footstamp.utils.getDistrictsFromArea
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 
@@ -61,13 +58,17 @@ class MapFragment : Fragment() {
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
                 // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
-                findViewById<ConstraintLayout>(R.id.container_area).children.forEach { button ->
-                    button.setOnClickListener {
-                        selectedId = it.id
-                        selectedArea = ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
-                        TransitionManager.go(sceneDistrict)
-                    }
+                findViewById<ConstraintLayout>(R.id.west).setOnClickListener {
+                    selectedArea = "서부";
+                    TransitionManager.go(sceneDistrict)
                 }
+//                findViewById<ConstraintLayout>(R.id.container_area).children.forEach { button ->
+//                    button.setOnClickListener {
+//                        selectedId = it.id
+//                        selectedArea = ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
+//                        TransitionManager.go(sceneDistrict)
+//                    }
+//                }
             }
         }
 
@@ -77,18 +78,10 @@ class MapFragment : Fragment() {
             Log.d(javaClass.name, "selectedId: $selectedId | selectedArea: $selectedArea")
 
             sceneDistrict.sceneRoot.apply {
-                // 전체 화면에 선택했던 id 부여
-                findViewById<ConstraintLayout>(R.id.container_area).getChildAt(0).id = selectedId
                 // 뒤로가기 버튼 설정
                 findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
                     TransitionManager.go(sceneArea)
                 }
-                // 중앙 정렬된 레이아웃에 해당 구역에 맞는 자치구 버튼들 생성
-                val layout = findViewById<LinearLayout>(R.id.ll_btn_wrapper)
-                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { setMargins(0, 5, 0, 5) }
-                val districts = getDistrictsFromArea(selectedArea)
-                districts.forEach { addButtonOnLinearLayout(layout, it, params) }
-
             }
         }
         return binding.root
