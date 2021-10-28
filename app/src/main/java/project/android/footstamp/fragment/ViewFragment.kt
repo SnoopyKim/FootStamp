@@ -100,25 +100,6 @@ class ViewFragment : Fragment() {
             super.onViewCreated(view, savedInstanceState)
 
     }
-//    private fun getImageData(key: String){
-//
-//        // Reference to an image file in Cloud Storage
-//        val storageReference = Firebase.storage.reference.child(key + ".png")
-//
-//        // ImageView in your Activity
-//        val imageViewFromFB = binding.getImageArea
-//
-//        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
-//            if (task.isSuccessful){
-//
-//                Glide.with(this)
-//                    .load(task.result)
-//                    .into(imageViewFromFB)
-//            } else {
-//                binding.getImageArea.isVisible = false
-//            }
-//        })
-//    }
 
     private fun getFBData(){
         val postListener = object : ValueEventListener {

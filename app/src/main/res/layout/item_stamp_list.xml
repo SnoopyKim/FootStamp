@@ -23,7 +23,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="2.5dp"
         android:hapticFeedbackEnabled="false"
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

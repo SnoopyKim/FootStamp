@@ -83,7 +83,7 @@ class PostFragment : Fragment() {
 
                 val dlg = DatePickerDialog(requireContext(),object : DatePickerDialog.OnDateSetListener{
                     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                        binding.DateBtn.text = "${year}년 ${month}월 ${dayOfMonth}일"
+                        binding.DateBtn.text = "${year}년 ${month+1}월 ${dayOfMonth}일"
                         dateSelect = true
                     }
 
