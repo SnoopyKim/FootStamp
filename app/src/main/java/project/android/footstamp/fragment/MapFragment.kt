@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.transition.Scene
@@ -58,7 +57,7 @@ class MapFragment : Fragment() {
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
                 // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
-                findViewById<ConstraintLayout>(R.id.west).setOnClickListener {
+                findViewById<LinearLayout>(R.id.ll_map).setOnClickListener {
                     selectedArea = "서부";
                     TransitionManager.go(sceneDistrict)
                 }
