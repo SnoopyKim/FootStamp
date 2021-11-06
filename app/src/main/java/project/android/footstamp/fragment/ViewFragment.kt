@@ -22,10 +22,7 @@ import project.android.footstamp.R
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.adapter.ViewAdapter
 import project.android.footstamp.databinding.FragmentViewBinding
-import project.android.footstamp.utils.FBAuth
-import project.android.footstamp.utils.FBRef
-import project.android.footstamp.utils.PostModel
-import project.android.footstamp.utils.getDistrictsFromArea
+import project.android.footstamp.utils.*
 
 class ViewFragment : Fragment() {
 
@@ -36,12 +33,14 @@ class ViewFragment : Fragment() {
     private lateinit var currentArea :String
     private lateinit var currentDistrict :String
     private lateinit var database: DatabaseReference
+    private var area = getAreas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         database = Firebase.database.reference
         binding = FragmentViewBinding.inflate(layoutInflater)
+        currentArea = ""
 
 
     }
@@ -49,45 +48,23 @@ class ViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_view, container, false)
-        val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
-        val sv = view.findViewById<RecyclerView>(R.id.spinRV)
-        val item = mutableListOf<String>()
+        val rv = binding.GalleryRCView
 
-        var svAdapter = ViewAdapter(view.context,item)
-        sv.adapter = svAdapter
-        sv.layoutManager = GridLayoutManager(view.context,3)
+        resetUI()
 
-        //스피너 설정
-        val spinner = view.findViewById<Spinner>(R.id.viewSpn)
-        ArrayAdapter.createFromResource(
-            requireContext(),R.array.central_array,android.R.layout.simple_spinner_item).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
-        //스피너 아이템 선택 리스너
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.viewSpn.adapter =
+            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+        binding.viewSpn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long,
             ) {
-                val stringArea = parent?.getItemAtPosition(position).toString()
-                val districts = getDistrictsFromArea(stringArea)
-                svAdapter = ViewAdapter(view!!.context, districts.toMutableList())
-                sv.adapter = svAdapter
-                currentArea = stringArea
-                Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
+                binding.viewSpn2.adapter = ArrayAdapter(requireContext(),
+                    R.layout.support_simple_spinner_dropdown_item,
+                    getDistrictsFromArea(area[position]))
 
-                //area선택에 따른 뷰 전환
-                getFBData(currentArea)
-
-                svAdapter.itemClick = object: ViewAdapter.ItemClick{
-                    override fun onClick(view: View,position: Int){
-
-                    }
-                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -95,13 +72,14 @@ class ViewFragment : Fragment() {
             }
 
         }
-        rvAdapter = GalleryViewAdapter(view.context, postDataList)
+
+        rvAdapter = GalleryViewAdapter(requireContext(), postDataList)
         rv.adapter = rvAdapter
 
         rv.layoutManager = LinearLayoutManager(context)
 
-        getFBData(currentArea)
-        return view
+        getFBData()
+        return binding.root
     }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,7 +87,7 @@ class ViewFragment : Fragment() {
 
     }
 
-    private fun getFBData(currentArea:String){
+    private fun getFBData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -131,5 +109,11 @@ class ViewFragment : Fragment() {
             }
         }
         FBRef.uidRef.child(FBAuth.getUid()).addValueEventListener(postListener)
+    }
+    private fun resetUI() {
+        binding.apply {
+            viewSpn.setSelection(0)
+            viewSpn2.setSelection(0)
+        }
     }
 }

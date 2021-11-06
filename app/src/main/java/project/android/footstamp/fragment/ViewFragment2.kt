@@ -48,9 +48,9 @@ class ViewFragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_view, container, false)
+        val view = inflater.inflate(R.layout.fragment_view2, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
-        val sv = view.findViewById<RecyclerView>(R.id.spinRV)
+        val sv = view.findViewById<RecyclerView>(R.id.viewSpn2)
         val item = mutableListOf<String>()
 
         var svAdapter = ViewAdapter(view.context,item)
