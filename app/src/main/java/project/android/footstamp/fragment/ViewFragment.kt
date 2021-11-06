@@ -1,7 +1,5 @@
 package project.android.footstamp.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,22 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import com.nex3z.togglebuttongroup.button.CircularToggle
 import project.android.footstamp.R
-import project.android.footstamp.activity.SplashActivity
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.adapter.ViewAdapter
 import project.android.footstamp.databinding.FragmentViewBinding
-import project.android.footstamp.model.Stamp
 import project.android.footstamp.utils.FBAuth
 import project.android.footstamp.utils.FBRef
 import project.android.footstamp.utils.PostModel
@@ -39,10 +33,14 @@ class ViewFragment : Fragment() {
    private val postDataList = mutableListOf<PostModel>()
     private lateinit var rvAdapter : GalleryViewAdapter
     private lateinit var auth: FirebaseAuth
+    private lateinit var currentArea :String
+    private lateinit var currentDistrict :String
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        database = Firebase.database.reference
         binding = FragmentViewBinding.inflate(layoutInflater)
 
 
@@ -56,9 +54,9 @@ class ViewFragment : Fragment() {
         val sv = view.findViewById<RecyclerView>(R.id.spinRV)
         val item = mutableListOf<String>()
 
-        var svAdapter = ViewAdapter(item)
+        var svAdapter = ViewAdapter(view.context,item)
         sv.adapter = svAdapter
-        sv.layoutManager = GridLayoutManager(requireContext(),3)
+        sv.layoutManager = GridLayoutManager(view.context,3)
 
         //스피너 설정
         val spinner = view.findViewById<Spinner>(R.id.viewSpn)
@@ -77,9 +75,19 @@ class ViewFragment : Fragment() {
             ) {
                 val stringArea = parent?.getItemAtPosition(position).toString()
                 val districts = getDistrictsFromArea(stringArea)
-                svAdapter = ViewAdapter(districts.toMutableList())
+                svAdapter = ViewAdapter(view!!.context, districts.toMutableList())
                 sv.adapter = svAdapter
+                currentArea = stringArea
+                Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
 
+                //area선택에 따른 뷰 전환
+                getFBData(currentArea)
+
+                svAdapter.itemClick = object: ViewAdapter.ItemClick{
+                    override fun onClick(view: View,position: Int){
+
+                    }
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -87,12 +95,12 @@ class ViewFragment : Fragment() {
             }
 
         }
-        rvAdapter = GalleryViewAdapter(requireContext(), postDataList)
+        rvAdapter = GalleryViewAdapter(view.context, postDataList)
         rv.adapter = rvAdapter
 
         rv.layoutManager = LinearLayoutManager(context)
 
-        getFBData()
+        getFBData(currentArea)
         return view
     }
 
@@ -100,37 +108,21 @@ class ViewFragment : Fragment() {
             super.onViewCreated(view, savedInstanceState)
 
     }
-//    private fun getImageData(key: String){
-//
-//        // Reference to an image file in Cloud Storage
-//        val storageReference = Firebase.storage.reference.child(key + ".png")
-//
-//        // ImageView in your Activity
-//        val imageViewFromFB = binding.getImageArea
-//
-//        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
-//            if (task.isSuccessful){
-//
-//                Glide.with(this)
-//                    .load(task.result)
-//                    .into(imageViewFromFB)
-//            } else {
-//                binding.getImageArea.isVisible = false
-//            }
-//        })
-//    }
 
-    private fun getFBData(){
+    private fun getFBData(currentArea:String){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 postDataList.clear()
 
                 for (dataModel in dataSnapshot.children) {
+                    val area = currentArea
                     val item = dataModel.getValue(PostModel::class.java)
+                    val query = database.child(area).orderByChild("height")
                     postDataList.add(item!!)
                 }
                 //데이터 대입
+                postDataList.reverse()
                 rvAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(databaseError: DatabaseError) {
