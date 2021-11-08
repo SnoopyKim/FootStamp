@@ -1,68 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.ViewFragment2">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-    <RadioButton
-        android:id="@+id/radioArea"
-        android:text="2021년"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3" />
-
-    <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
-        android:id="@+id/group_choices"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        app:tbgCheckedButton="@id/choice_a">
-
-        <com.nex3z.togglebuttongroup.button.CircularToggle
-            android:id="@+id/choice_a"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tbgMarkerColor="@color/maincolor"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:text="8월" />
+            android:gravity="center"
+            android:text="서울시"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.nex3z.togglebuttongroup.button.CircularToggle
-            android:id="@+id/choice_b"
+        <Spinner
+            android:id="@+id/viewSpn3"
             android:layout_width="wrap_content"
-            app:tbgMarkerColor="@color/maincolor"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:text="9월" />
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.nex3z.togglebuttongroup.button.CircularToggle
-            android:id="@+id/choice_c"
+        <Spinner
+            android:id="@+id/viewSpn4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tbgMarkerColor="@color/maincolor"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:text="10월" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/GalleryRCView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -17,10 +17,14 @@
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/bg_spinner_area.xml" value="0.5697916666666667" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/radius.xml" value="0.2861111111111111" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_ref.xml" value="0.42962962962962964" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_gallery.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.225" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_splash.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/bg_spinner_area.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.25" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.2796296296296296" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.5536458333333333" />
@@ -55,7 +59,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.5536458333333333" />
+        <option name="scale" value="0.5329441201000834" />
       </ProjectState>
     </option>
   </component>

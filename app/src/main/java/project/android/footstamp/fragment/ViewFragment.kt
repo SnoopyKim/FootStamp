@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -20,7 +18,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.R
 import project.android.footstamp.adapter.GalleryViewAdapter
-import project.android.footstamp.adapter.ViewAdapter
 import project.android.footstamp.databinding.FragmentViewBinding
 import project.android.footstamp.utils.*
 
@@ -30,9 +27,9 @@ class ViewFragment : Fragment() {
    private val postDataList = mutableListOf<PostModel>()
     private lateinit var rvAdapter : GalleryViewAdapter
     private lateinit var auth: FirebaseAuth
-    private lateinit var currentArea :String
-    private lateinit var currentDistrict :String
     private lateinit var database: DatabaseReference
+    private lateinit var currentArea : String
+    private lateinit var currentDistrict : String
     private var area = getAreas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +38,7 @@ class ViewFragment : Fragment() {
         database = Firebase.database.reference
         binding = FragmentViewBinding.inflate(layoutInflater)
         currentArea = ""
-
+        currentDistrict = ""
 
     }
     override fun onCreateView(
@@ -64,21 +61,34 @@ class ViewFragment : Fragment() {
                 binding.viewSpn2.adapter = ArrayAdapter(requireContext(),
                     R.layout.support_simple_spinner_dropdown_item,
                     getDistrictsFromArea(area[position]))
+                currentArea = binding.viewSpn.selectedItem.toString()
 
+                binding.viewSpn2.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(parent: AdapterView<*>?,
+                                                view: View?,
+                                                position: Int,
+                                                id: Long,) {
+                        currentDistrict = binding.viewSpn2.selectedItem.toString()
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        TODO("Not yet implemented")
+                    }
+                }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
 
-        rvAdapter = GalleryViewAdapter(requireContext(), postDataList)
+        rvAdapter = GalleryViewAdapter(requireContext(), postDataList, currentArea)
         rv.adapter = rvAdapter
 
         rv.layoutManager = LinearLayoutManager(context)
 
         getFBData()
+
+        postDataList
         return binding.root
     }
 
@@ -94,9 +104,7 @@ class ViewFragment : Fragment() {
                 postDataList.clear()
 
                 for (dataModel in dataSnapshot.children) {
-                    val area = currentArea
                     val item = dataModel.getValue(PostModel::class.java)
-                    val query = database.child(area).orderByChild("height")
                     postDataList.add(item!!)
                 }
                 //데이터 대입

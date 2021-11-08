@@ -8,74 +8,57 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.R
 import project.android.footstamp.adapter.GalleryViewAdapter
-import project.android.footstamp.adapter.ViewAdapter
+import project.android.footstamp.adapter.GalleryViewAdapter2
 import project.android.footstamp.databinding.FragmentView2Binding
 import project.android.footstamp.model.Stamp
-import project.android.footstamp.utils.FBAuth
-import project.android.footstamp.utils.FBRef
-import project.android.footstamp.utils.PostModel
-import project.android.footstamp.utils.getDistrictsFromArea
+import project.android.footstamp.utils.*
 
 class ViewFragment2 : Fragment() {
     // TODO: Rename and change types of parameters
-    var items = mutableListOf<Stamp>()
-    lateinit var galadapter : GalleryViewAdapter
     lateinit var binding: FragmentView2Binding
     private val postDataList = mutableListOf<PostModel>()
-    private lateinit var rvAdapter : GalleryViewAdapter
+    private lateinit var rvAdapter : GalleryViewAdapter2
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private var area = getAreas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        database = Firebase.database.reference
         binding = FragmentView2Binding.inflate(layoutInflater)
-
 
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_view2, container, false)
-        val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
-        val sv = view.findViewById<RecyclerView>(R.id.viewSpn2)
-        val item = mutableListOf<String>()
+        val rv = binding.GalleryRCView2
+        resetUI()
 
-        var svAdapter = ViewAdapter(view.context,item)
-        sv.adapter = svAdapter
-        sv.layoutManager = GridLayoutManager(requireContext(),3)
-
-        //스피너 설정
-        val spinner = view.findViewById<Spinner>(R.id.viewSpn)
-        ArrayAdapter.createFromResource(
-            requireContext(),R.array.central_array,android.R.layout.simple_spinner_item).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
-        //스피너 아이템 선택 리스너
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.viewSpn3.adapter =
+            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+        binding.viewSpn3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long,
             ) {
-                val stringArea = parent?.getItemAtPosition(position).toString()
-                val districts = getDistrictsFromArea(stringArea)
-                svAdapter = ViewAdapter(view!!.context,districts.toMutableList())
-                sv.adapter = svAdapter
+                binding.viewSpn4.adapter = ArrayAdapter(requireContext(),
+                    R.layout.support_simple_spinner_dropdown_item,
+                    getDistrictsFromArea(area[position]))
 
             }
 
@@ -84,13 +67,13 @@ class ViewFragment2 : Fragment() {
             }
 
         }
-        rvAdapter = GalleryViewAdapter(requireContext(), postDataList)
+        rvAdapter = GalleryViewAdapter2(requireContext(), postDataList)
         rv.adapter = rvAdapter
 
         rv.layoutManager = LinearLayoutManager(context)
 
         getFBData()
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,5 +100,11 @@ class ViewFragment2 : Fragment() {
             }
         }
         FBRef.uidRef.child(FBAuth.getUid()).addValueEventListener(postListener)
+    }
+    private fun resetUI() {
+        binding.apply {
+            viewSpn3.setSelection(0)
+            viewSpn4.setSelection(0)
+        }
     }
 }

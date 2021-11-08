@@ -74,7 +74,7 @@ class PostFragment : Fragment() {
         resetUI()
         binding.apply {
 
-            binding.DateBtn.setOnClickListener {
+            binding.DateText.setOnClickListener {
 
                 val today = GregorianCalendar()
                 val year = today.get(Calendar.YEAR)
@@ -83,7 +83,7 @@ class PostFragment : Fragment() {
 
                 val dlg = DatePickerDialog(requireContext(),object : DatePickerDialog.OnDateSetListener{
                     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                        binding.DateBtn.text = "${year}년 ${month+1}월 ${dayOfMonth}일"
+                        binding.DateText.text = "${year}년 ${month+1}월 ${dayOfMonth}일"
                         dateSelect = true
                     }
 
@@ -124,7 +124,7 @@ class PostFragment : Fragment() {
                         val Area = binding.spnArea.selectedItem.toString()
                         val District = binding.spnDistrict.selectedItem.toString()
                         val uid = FBAuth.getUid()
-                        val time = binding.DateBtn.text.toString()
+                        val time = binding.DateText.text.toString()
                         val memo = binding.etMemo.text.toString()
                         val key = FBRef.uidRef.push().key.toString()
 
@@ -137,11 +137,11 @@ class PostFragment : Fragment() {
                         stampViewModel.insertItem(
                             Area,
                             District,
-                            binding.DateBtn.text.toString(),
+                            binding.DateText.text.toString(),
                             imageBuffer,
                             memo
                         )
-                        binding.DateBtn.text = "날짜 선택하기"
+                        binding.DateText.text = "날짜 선택하기"
                         resetUI()
                         Toast.makeText(context,"사진이 게시되었습니다",Toast.LENGTH_SHORT).show()
                     } else {
@@ -157,7 +157,7 @@ class PostFragment : Fragment() {
     private fun resetUI() {
         imageBuffer = ByteArray(0)
         binding.apply {
-            ivImageSearch.setImageResource(R.drawable.ic_image_search)
+            ivImageSearch.setImageResource(R.drawable.foot_logo)
             spnArea.setSelection(0)
             spnDistrict.setSelection(0)
             etMemo.text.clear()
