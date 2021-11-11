@@ -91,6 +91,9 @@ class ViewFragment2 : Fragment() {
                     val item = dataModel.getValue(PostModel::class.java)
                     postDataList.add(item!!)
                 }
+
+                postDataList.sortBy { e -> e.time.replace("[^0-9]".toRegex(), "") }
+
                 //데이터 대입
                 rvAdapter.notifyDataSetChanged()
             }

@@ -27,7 +27,8 @@ import project.android.footstamp.utils.PostModel
 class  GalleryViewAdapter2(val context : Context,
                           val List : MutableList<PostModel>)
     : RecyclerView.Adapter<GalleryViewAdapter2.ViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): GalleryViewAdapter2.ViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int ): GalleryViewAdapter2.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_stamp_list,parent,false)
         return ViewHolder(v)
     }

@@ -23,11 +23,14 @@ import project.android.footstamp.activity.GalleryActivity
 import project.android.footstamp.fragment.ViewFragment
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.utils.PostModel
+import project.android.footstamp.activity.MainActivity
 
-class  GalleryViewAdapter(val context : Context,
-                          val List : MutableList<PostModel>, val currentArea:String)
+class  GalleryViewAdapter(
+    val context: Context,
+    val List: MutableList<PostModel>, var currentArea: String, var currentDistrict: String
+)
     : RecyclerView.Adapter<GalleryViewAdapter.ViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): GalleryViewAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_stamp_list,parent,false)
         return ViewHolder(v)
     }
@@ -49,13 +52,11 @@ class  GalleryViewAdapter(val context : Context,
                 val key = item.key
                 val storageReference = Firebase.storage.reference.child(key + ".png")
                 val con = itemView.findViewById<ConstraintLayout>(R.id.Con)
-                val cuArea =
 
-
-                date!!.setText(List[position].time)
-                memo!!.setText(List[position].memo)
-                area!!.setText(List[position].area)
-                district!!.setText(List[position].district)
+                date!!.setText(item.time)
+                memo!!.setText(item.memo)
+                area!!.setText(item.area)
+                district!!.setText(item.district)
 
 
                 storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
@@ -77,14 +78,26 @@ class  GalleryViewAdapter(val context : Context,
                     intent.putExtra("memo",memo.text)
                     itemView.context.startActivity(intent)
 
-                    Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
-                }
 
-//                if (!List[position].district.equals(cuArea.selectedItem.toString())){
-//                    con.maxHeight = 0
-//                } else{
-//                    con.maxHeight = 1000
-//                }
+//                    (context as MainActivity).AdapterRefresh(currentArea,currentDistrict)
+//                    Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
+                }
+//
+                if (!item.district.equals(currentDistrict)){
+                    con.maxHeight = 0
+                    Log.d("TAG",currentDistrict)
+                } else{
+                    con.maxHeight = 1000
+                }
             }
         }
+//    fun setcurrentarea(cu:String){
+//        currentArea = cu
+//        notifyDataSetChanged()
+//    }
+
+    fun setcurrentdistrict(cu:String){
+        currentDistrict = cu
+        notifyDataSetChanged()
+    }
 }

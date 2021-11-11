@@ -62,6 +62,8 @@ class ViewFragment : Fragment() {
                     R.layout.support_simple_spinner_dropdown_item,
                     getDistrictsFromArea(area[position]))
                 currentArea = binding.viewSpn.selectedItem.toString()
+//                rvAdapter.setCurrent(currentArea)
+
 
                 binding.viewSpn2.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
                     override fun onItemSelected(parent: AdapterView<*>?,
@@ -69,6 +71,8 @@ class ViewFragment : Fragment() {
                                                 position: Int,
                                                 id: Long,) {
                         currentDistrict = binding.viewSpn2.selectedItem.toString()
+                        rvAdapter.setcurrentdistrict(currentDistrict)
+
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -81,7 +85,7 @@ class ViewFragment : Fragment() {
             }
         }
 
-        rvAdapter = GalleryViewAdapter(requireContext(), postDataList, currentArea)
+        rvAdapter = GalleryViewAdapter(requireContext(), postDataList, currentArea, currentDistrict)
         rv.adapter = rvAdapter
 
         rv.layoutManager = LinearLayoutManager(context)

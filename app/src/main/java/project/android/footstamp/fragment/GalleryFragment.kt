@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import project.android.footstamp.R
 import project.android.footstamp.adapter.PagerAdapter
@@ -22,16 +23,14 @@ import project.android.footstamp.R.id.*
 import project.android.footstamp.StampApplication
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.databinding.FragmentGalleryBinding
+import project.android.footstamp.databinding.FragmentView2Binding
+import project.android.footstamp.databinding.FragmentViewBinding
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 
 class GalleryFragment : Fragment() {
     lateinit var binding: FragmentGalleryBinding
-    lateinit var adapter: GalleryViewAdapter
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +45,12 @@ class GalleryFragment : Fragment() {
 
         // Inflate the layout for this fragment
 
-
-        val view = inflater.inflate(R.layout.fragment_gallery, container, false)
-
-        val Gpager = view.findViewById<ViewPager2>(R.id.pager)
         val fragmentList = listOf(ViewFragment(),ViewFragment2())
         val adapter = PagerAdapter(requireActivity())
         adapter.fragments = fragmentList
-        Gpager.adapter = adapter
+        binding.pager.adapter = adapter
 
-
-        val Gtab = view.findViewById<TabLayout>(R.id.GalleryTab)
-        TabLayoutMediator(Gtab,Gpager){tab, position ->
+        TabLayoutMediator(binding.GalleryTab,binding.pager){tab, position ->
         if(position == 0){
             tab.text = "지역별 보기"
         } else {
@@ -67,8 +60,10 @@ class GalleryFragment : Fragment() {
 
 
 
-
-        return view
+        binding.GFloatingBtn.setOnClickListener {
+            it.findNavController().navigate(R.id.action_gallery_to_post)
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

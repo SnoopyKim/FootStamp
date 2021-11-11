@@ -1,5 +1,6 @@
 package project.android.footstamp.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
@@ -38,5 +39,16 @@ class GalleryActivity : AppCompatActivity() {
                     .into(binding.Gimage)
             }
         })
+
+        binding.Gedit.setOnClickListener {
+            val intent = Intent(this,EditActivity::class.java)
+            intent.putExtra("date",date.toString())
+            intent.putExtra("area",area.toString())
+            intent.putExtra("district",district.toString())
+            intent.putExtra("key",key.toString())
+            intent.putExtra("memo",memo.toString())
+
+            startActivity(intent)
+        }
     }
 }
