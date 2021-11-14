@@ -23,6 +23,7 @@ import project.android.footstamp.activity.GalleryActivity
 import project.android.footstamp.fragment.ViewFragment
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.utils.PostModel
+import java.util.*
 
 class  GalleryViewAdapter2(val context : Context,
                           val List : MutableList<PostModel>)
@@ -50,10 +51,10 @@ class  GalleryViewAdapter2(val context : Context,
             val key = item.key
             val storageReference = Firebase.storage.reference.child(key + ".png")
 
-            date!!.setText(List[position].time)
-            memo!!.setText(List[position].memo)
-            area!!.setText(List[position].area)
-            district!!.setText(List[position].district)
+            date!!.setText(item.time)
+            memo!!.setText(item.memo)
+            area!!.setText(item.area)
+            district!!.setText(item.district)
 
 
             storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
@@ -74,6 +75,10 @@ class  GalleryViewAdapter2(val context : Context,
                 intent.putExtra("key",key)
                 intent.putExtra("memo",memo.text)
                 itemView.context.startActivity(intent)
+
+                var day = GregorianCalendar()
+                val year = day.get(Calendar.YEAR)
+                Log.d("TAG",year.toString())
             }
         }
     }

@@ -11,5 +11,7 @@ class FBRef {
         private val database = Firebase.database
 
         val uidRef = database.getReference("uid")
+        val boardRef = database.getReference("board")
+
     }
 }

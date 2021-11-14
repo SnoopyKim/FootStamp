@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import project.android.footstamp.R.id.*
 import project.android.footstamp.StampApplication
+import project.android.footstamp.activity.PostActivity
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.databinding.FragmentGalleryBinding
 import project.android.footstamp.databinding.FragmentView2Binding
@@ -61,7 +62,8 @@ class GalleryFragment : Fragment() {
 
 
         binding.GFloatingBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.action_gallery_to_post)
+            val intent = Intent(context,PostActivity::class.java)
+            startActivity(intent)
         }
         return binding.root
     }

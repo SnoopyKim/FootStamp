@@ -1,5 +1,6 @@
 package project.android.footstamp.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -23,6 +25,9 @@ import project.android.footstamp.adapter.GalleryViewAdapter2
 import project.android.footstamp.databinding.FragmentView2Binding
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.utils.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ViewFragment2 : Fragment() {
     // TODO: Rename and change types of parameters
@@ -92,7 +97,18 @@ class ViewFragment2 : Fragment() {
                     postDataList.add(item!!)
                 }
 
-                postDataList.sortBy { e -> e.time.replace("[^0-9]".toRegex(), "") }
+//              postDataList.sortBy { e ->
+//                  val Calendar = Calendar.getInstance()
+//                  var time =e.time.split(" ")
+//                      e.time.replace("[^0-9]".toRegex(), "")
+//                  var timelist = time.split(" ")
+//                  var year = timelist[0].toInt()
+//                  var month = timelist[1].toInt()
+//                  var day = timelist[2].toInt()
+
+//                  Calendar.set(year,month,day)
+//                  java.util.concurrent.TimeUnit.MILLISECONDS.toDays(Calendar.timeInMillis) }
+
 
                 //데이터 대입
                 rvAdapter.notifyDataSetChanged()
@@ -109,5 +125,15 @@ class ViewFragment2 : Fragment() {
             viewSpn3.setSelection(0)
             viewSpn4.setSelection(0)
         }
+    }
+
+    fun toDate(day:String) {
+        val string = day
+        val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter.ofPattern("yyyy MM dd", Locale.ENGLISH)
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        val Cdate = LocalDate.parse(string,formatter)
     }
 }

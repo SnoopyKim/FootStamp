@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/dEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius"
+        android:layout_margin="20dp"
+        android:text="수정하기"/>
+
+    <Button
+        android:id="@+id/dDel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius"
+        android:layout_margin="20dp"
+        android:text="삭제하기"/>
+
+    <Button
+        android:id="@+id/dBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius"
+        android:layout_margin="20dp"
+        android:text="자랑하기"/>
+
+</LinearLayout>

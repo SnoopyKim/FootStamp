@@ -62,7 +62,7 @@ class ViewFragment : Fragment() {
                     R.layout.support_simple_spinner_dropdown_item,
                     getDistrictsFromArea(area[position]))
                 currentArea = binding.viewSpn.selectedItem.toString()
-//                rvAdapter.setCurrent(currentArea)
+                rvAdapter.setcurrentarea(currentArea)
 
 
                 binding.viewSpn2.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
@@ -87,7 +87,6 @@ class ViewFragment : Fragment() {
 
         rvAdapter = GalleryViewAdapter(requireContext(), postDataList, currentArea, currentDistrict)
         rv.adapter = rvAdapter
-
         rv.layoutManager = LinearLayoutManager(context)
 
         getFBData()

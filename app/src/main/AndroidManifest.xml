@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FootStamp">
         <activity
+            android:name=".activity.PostActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.EditActivity"
             android:exported="false" />
         <activity

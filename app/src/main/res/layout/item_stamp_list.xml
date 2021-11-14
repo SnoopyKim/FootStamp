@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#000000"
@@ -20,8 +21,6 @@
         android:id="@+id/ItemStampImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginLeft="2.5dp"
-        android:layout_marginRight="2.5dp"
         android:hapticFeedbackEnabled="false"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,36 +41,37 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="#000000"
         android:textColorHighlight="#000000"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.089"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
         app:layout_constraintStart_toStartOf="@+id/ItemStampImage"
         app:layout_constraintTop_toTopOf="@+id/ItemStampImage" />
 
     <TextView
         android:id="@+id/ItemStampArea"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
         android:text="area"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/ItemStampDistrict"
-        app:layout_constraintTop_toTopOf="@+id/ItemStampImage" />
+        app:layout_constraintTop_toBottomOf="@+id/ItemStampText" />
 
     <TextView
         android:id="@+id/ItemStampDistrict"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#5BFFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:background="#FFFFFF"
+        android:backgroundTint="#5BFFFFFF"
         android:text="district"
+        android:textColor="@color/black"
+
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
-        app:layout_constraintTop_toTopOf="@+id/ItemStampImage" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemStampText" />
 
     <TextView
         android:id="@+id/ItemStampMemo"

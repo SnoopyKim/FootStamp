@@ -78,26 +78,34 @@ class  GalleryViewAdapter(
                     intent.putExtra("memo",memo.text)
                     itemView.context.startActivity(intent)
 
-
-//                    (context as MainActivity).AdapterRefresh(currentArea,currentDistrict)
-//                    Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
                 }
-//
-                if (!item.district.equals(currentDistrict)){
-                    con.maxHeight = 0
-                    Log.d("TAG",currentDistrict)
+                if (currentArea.equals("전체")){
+
                 } else{
-                    con.maxHeight = 1000
+                    if (!item.area.equals(currentArea)){
+                        con.maxHeight = 0
+                    } else {
+                        con.maxHeight = 1000
+                    }
+                }
+                if(currentDistrict.equals("전체")){
+                } else{
+                    if (!item.district.equals(currentDistrict)){
+                        con.maxHeight = 0
+                        Log.d("TAG",currentDistrict)
+                    } else{
+                        con.maxHeight = 1000
+                    }
                 }
             }
         }
-//    fun setcurrentarea(cu:String){
-//        currentArea = cu
-//        notifyDataSetChanged()
-//    }
+    fun setcurrentarea(cua:String){
+        currentArea = cua
+        notifyDataSetChanged()
+    }
 
-    fun setcurrentdistrict(cu:String){
-        currentDistrict = cu
+    fun setcurrentdistrict(cud:String){
+        currentDistrict = cud
         notifyDataSetChanged()
     }
 }
