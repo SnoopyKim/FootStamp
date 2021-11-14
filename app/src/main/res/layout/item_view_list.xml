@@ -13,6 +13,13 @@
         android:background="@color/black"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/ItemViewImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hapticFeedbackEnabled="false"
+        android:scaleType="centerCrop"/>
+
     <TextView
         android:id="@+id/dateArea"
         android:layout_width="wrap_content"
@@ -20,6 +27,24 @@
         android:text="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/itemview_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="area"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateArea" />
+
+    <TextView
+        android:id="@+id/itemview_district"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="district"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/itemview_area"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/titleArea"
@@ -36,5 +61,14 @@
         android:layout_height="0.5dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/invuid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="uid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
