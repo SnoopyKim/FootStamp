@@ -22,12 +22,10 @@ import com.google.firebase.storage.ktx.storage
 import project.android.footstamp.R
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentPostBinding
-import project.android.footstamp.model.Stamp
 import project.android.footstamp.utils.*
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 import java.io.ByteArrayOutputStream
-import java.sql.Time
 import java.util.*
 
 class PostFragment : Fragment() {
