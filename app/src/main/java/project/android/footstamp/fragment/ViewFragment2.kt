@@ -97,18 +97,17 @@ class ViewFragment2 : Fragment() {
                     postDataList.add(item!!)
                 }
 
-//              postDataList.sortBy { e ->
-//                  val Calendar = Calendar.getInstance()
-//                  var time =e.time.split(" ")
-//                      e.time.replace("[^0-9]".toRegex(), "")
-//                  var timelist = time.split(" ")
-//                  var year = timelist[0].toInt()
-//                  var month = timelist[1].toInt()
-//                  var day = timelist[2].toInt()
+              postDataList.sortBy { e ->
+                  val calendar = Calendar.getInstance()
+                  var time = e.time.split(" ")
+                  var year = time[0].replace("[^0-9]".toRegex(), "").toInt()
+                  var month = time[1].replace("[^0-9]".toRegex(), "").toInt()
+                  var day = time[2].replace("[^0-9]".toRegex(), "").toInt()
 
-//                  Calendar.set(year,month,day)
+                  calendar.set(year, month, day)
 //                  java.util.concurrent.TimeUnit.MILLISECONDS.toDays(Calendar.timeInMillis) }
-
+                calendar.timeInMillis
+              }
 
                 //데이터 대입
                 rvAdapter.notifyDataSetChanged()

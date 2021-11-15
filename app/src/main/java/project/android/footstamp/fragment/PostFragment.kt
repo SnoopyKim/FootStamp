@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -18,13 +19,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.adapter.BoardAdapter
 import project.android.footstamp.databinding.FragmentPostBinding
+import project.android.footstamp.utils.BoardModel
 import project.android.footstamp.utils.FBAuth
 import project.android.footstamp.utils.FBRef
 import project.android.footstamp.utils.PostModel
 
 
 class PostFragment : Fragment() {
-    private val boardDataList = mutableListOf<PostModel>()
+    private val boardDataList = mutableListOf<BoardModel>()
     lateinit var binding: FragmentPostBinding
     private lateinit var rvAdapter : BoardAdapter
     private lateinit var auth: FirebaseAuth
@@ -46,7 +48,7 @@ class PostFragment : Fragment() {
 
         rvAdapter = BoardAdapter(requireContext(),boardDataList,uid)
         rv.adapter = rvAdapter
-        rv.layoutManager = LinearLayoutManager(context)
+        rv.layoutManager = GridLayoutManager(context,3)
         getFBData()
 
         return binding.root
@@ -63,11 +65,11 @@ class PostFragment : Fragment() {
                 boardDataList.clear()
 
                 for (dataModel in dataSnapshot.children) {
-                    val item = dataModel.getValue(PostModel::class.java)
+                    val item = dataModel.getValue(BoardModel::class.java)
                     boardDataList.add(item!!)
                 }
                 //데이터 대입
-                boardDataList.reverse()
+                boardDataList.random()
                 rvAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(databaseError: DatabaseError) {

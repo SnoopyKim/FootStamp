@@ -116,6 +116,7 @@ class PostActivity : AppCompatActivity() {
                     binding.DateText.text = "날짜 선택하기"
                     resetUI()
                     Toast.makeText(context,"사진이 게시되었습니다", Toast.LENGTH_SHORT).show()
+                    finish()
                 } else {
                     Toast.makeText(context, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                 }

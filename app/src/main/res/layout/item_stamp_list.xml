@@ -34,8 +34,6 @@
         android:id="@+id/ItemStampText"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#5BFFFFFF"
         android:fontFamily="@font/jua"
         android:text="Date"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -63,8 +61,6 @@
         android:id="@+id/ItemStampDistrict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#5BFFFFFF"
         android:text="district"
         android:textColor="@color/black"
 

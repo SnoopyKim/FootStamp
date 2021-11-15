@@ -13,9 +13,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityGalleryBinding
+import project.android.footstamp.utils.BoardModel
 import project.android.footstamp.utils.FBAuth
 import project.android.footstamp.utils.FBRef
-import project.android.footstamp.utils.PostModel
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -69,6 +69,7 @@ class GalleryActivity : AppCompatActivity() {
             val key =intent.getStringExtra("key")
             val memo = intent.getStringExtra("memo")
             val intent = Intent(this,EditActivity::class.java)
+
             intent.putExtra("date",date.toString())
             intent.putExtra("area",area.toString())
             intent.putExtra("district",district.toString())
@@ -79,6 +80,12 @@ class GalleryActivity : AppCompatActivity() {
             startActivity(intent)
         }
         alertDialog.findViewById<Button>(R.id.dDel)?.setOnClickListener {
+            val uid = FBAuth.getUid()
+            val key =intent.getStringExtra("key")
+            FBRef.uidRef.child(uid).child(key.toString()).removeValue()
+            FBRef.boardRef.child(key.toString()).removeValue()
+            finish()
+            Toast.makeText(applicationContext,"삭제 완료",Toast.LENGTH_SHORT).show()
             alertDialog.dismiss()
 
         }
@@ -90,11 +97,12 @@ class GalleryActivity : AppCompatActivity() {
             val memo = intent.getStringExtra("memo").toString()
             val uid = FBAuth.getUid()
 
+
             FBRef.boardRef
                 .child(key)
-                .setValue(PostModel(Area, District, time, memo, key),uid)
+                .setValue(BoardModel(Area, District, time, memo, key, uid))
             alertDialog.dismiss()
-            Toast.makeText(applicationContext,"게시완료",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"게시 완료",Toast.LENGTH_SHORT).show()
         }
 
         }

@@ -80,7 +80,7 @@ class  GalleryViewAdapter(
 
                 }
                 if (currentArea.equals("전체")){
-
+                        con.maxHeight = 1000
                 } else{
                     if (!item.area.equals(currentArea)){
                         con.maxHeight = 0
