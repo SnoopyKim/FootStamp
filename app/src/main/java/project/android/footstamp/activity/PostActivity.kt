@@ -35,6 +35,8 @@ class PostActivity : AppCompatActivity() {
     val database = Firebase.database
     val context = this
     val FBPost = database.getReference("")
+    val storage = Firebase.storage
+    val gsReference = storage.getReferenceFromUrl("gs://bucket/images/stars.jpg")
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         val uri = result.data?.data
@@ -106,6 +108,7 @@ class PostActivity : AppCompatActivity() {
                     val time = binding.DateText.text.toString()
                     val memo = binding.etMemo.text.toString()
                     val key = FBRef.uidRef.push().key.toString()
+                    val url = 
 
                     FBRef.uidRef
                         .child(uid).child(key)

@@ -43,6 +43,8 @@ class BoardAdapter(val context: Context, val List : MutableList<BoardModel>, val
                 val memo = item.memo
                 val storageReference = Firebase.storage.reference.child(key + ".png")
 
+                getItemViewType()
+
                 storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
                     if (task.isSuccessful) {
 
@@ -70,4 +72,7 @@ class BoardAdapter(val context: Context, val List : MutableList<BoardModel>, val
 
             }
         }
+    override fun getItemViewType(position:Int): Int {
+        return position;
+    }
 }

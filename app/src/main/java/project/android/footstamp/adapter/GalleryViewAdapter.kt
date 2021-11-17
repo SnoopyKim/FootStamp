@@ -58,6 +58,7 @@ class  GalleryViewAdapter(
                 area!!.setText(item.area)
                 district!!.setText(item.district)
 
+                getItemViewType()
 
                 storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -108,4 +109,10 @@ class  GalleryViewAdapter(
         currentDistrict = cud
         notifyDataSetChanged()
     }
+
+    override fun getItemViewType(position:Int): Int {
+        return position;
+    }
+
+
 }

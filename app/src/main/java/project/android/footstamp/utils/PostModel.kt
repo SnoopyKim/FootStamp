@@ -6,5 +6,6 @@ data class PostModel (
     val district : String = "",
     val time : String = "",
     val memo : String = "",
-    val key : String = ""
+    val key : String = "",
+    val url : String = ""
         )
