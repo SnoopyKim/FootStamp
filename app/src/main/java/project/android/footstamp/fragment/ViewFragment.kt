@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -20,12 +18,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.R
 import project.android.footstamp.adapter.GalleryViewAdapter
-import project.android.footstamp.adapter.ViewAdapter
 import project.android.footstamp.databinding.FragmentViewBinding
-import project.android.footstamp.utils.FBAuth
-import project.android.footstamp.utils.FBRef
-import project.android.footstamp.utils.PostModel
-import project.android.footstamp.utils.getDistrictsFromArea
+import project.android.footstamp.utils.*
 
 class ViewFragment : Fragment() {
 
@@ -33,75 +27,72 @@ class ViewFragment : Fragment() {
    private val postDataList = mutableListOf<PostModel>()
     private lateinit var rvAdapter : GalleryViewAdapter
     private lateinit var auth: FirebaseAuth
-    private lateinit var currentArea :String
-    private lateinit var currentDistrict :String
     private lateinit var database: DatabaseReference
+    private lateinit var currentArea : String
+    private lateinit var currentDistrict : String
+    private var area = getAreas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         database = Firebase.database.reference
         binding = FragmentViewBinding.inflate(layoutInflater)
-
+        currentArea = ""
+        currentDistrict = ""
 
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_view, container, false)
-        val rv = view.findViewById<RecyclerView>(R.id.GalleryRCView)
-        val sv = view.findViewById<RecyclerView>(R.id.spinRV)
-        val item = mutableListOf<String>()
+        val rv = binding.GalleryRCView
 
-        var svAdapter = ViewAdapter(view.context,item)
-        sv.adapter = svAdapter
-        sv.layoutManager = GridLayoutManager(view.context,3)
+        resetUI()
 
-        //스피너 설정
-        val spinner = view.findViewById<Spinner>(R.id.viewSpn)
-        ArrayAdapter.createFromResource(
-            requireContext(),R.array.central_array,android.R.layout.simple_spinner_item).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
-        //스피너 아이템 선택 리스너
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.viewSpn.adapter =
+            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+        binding.viewSpn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long,
             ) {
-                val stringArea = parent?.getItemAtPosition(position).toString()
-                val districts = getDistrictsFromArea(stringArea)
-                svAdapter = ViewAdapter(view!!.context, districts.toMutableList())
-                sv.adapter = svAdapter
-                currentArea = stringArea
-                Toast.makeText(context,currentArea,Toast.LENGTH_SHORT).show()
+                binding.viewSpn2.adapter = ArrayAdapter(requireContext(),
+                    R.layout.support_simple_spinner_dropdown_item,
+                    getDistrictsFromArea(area[position]))
+                currentArea = binding.viewSpn.selectedItem.toString()
+                rvAdapter.setcurrentarea(currentArea)
 
-                //area선택에 따른 뷰 전환
-                getFBData(currentArea)
 
-                svAdapter.itemClick = object: ViewAdapter.ItemClick{
-                    override fun onClick(view: View,position: Int){
+                binding.viewSpn2.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(parent: AdapterView<*>?,
+                                                view: View?,
+                                                position: Int,
+                                                id: Long,) {
+                        currentDistrict = binding.viewSpn2.selectedItem.toString()
+                        rvAdapter.setcurrentdistrict(currentDistrict)
 
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        TODO("Not yet implemented")
                     }
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
-        rvAdapter = GalleryViewAdapter(view.context, postDataList)
-        rv.adapter = rvAdapter
 
+        rvAdapter = GalleryViewAdapter(requireContext(), postDataList, currentArea, currentDistrict)
+        rv.adapter = rvAdapter
         rv.layoutManager = LinearLayoutManager(context)
 
-        getFBData(currentArea)
-        return view
+        getFBData()
+
+        postDataList
+        return binding.root
     }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,16 +100,14 @@ class ViewFragment : Fragment() {
 
     }
 
-    private fun getFBData(currentArea:String){
+    private fun getFBData(){
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 postDataList.clear()
 
                 for (dataModel in dataSnapshot.children) {
-                    val area = currentArea
                     val item = dataModel.getValue(PostModel::class.java)
-                    val query = database.child(area).orderByChild("height")
                     postDataList.add(item!!)
                 }
                 //데이터 대입
@@ -131,5 +120,11 @@ class ViewFragment : Fragment() {
             }
         }
         FBRef.uidRef.child(FBAuth.getUid()).addValueEventListener(postListener)
+    }
+    private fun resetUI() {
+        binding.apply {
+            viewSpn.setSelection(0)
+            viewSpn2.setSelection(0)
+        }
     }
 }

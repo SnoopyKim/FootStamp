@@ -1,13 +1,11 @@
 package project.android.footstamp.utils
 
-import android.graphics.Bitmap
-
-data class PostModel(
+data class BoardModel  (
 
     val area : String = "",
     val district : String = "",
     val time : String = "",
     val memo : String = "",
     val key : String = "",
-    val url : String = ""
+    val uid : String = ""
 )
