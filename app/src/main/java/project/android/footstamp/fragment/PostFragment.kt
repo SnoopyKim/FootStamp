@@ -31,7 +31,6 @@ class PostFragment : Fragment() {
     private lateinit var rvAdapter : BoardAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private val uid = FBAuth.getUid()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = FragmentPostBinding.inflate(layoutInflater)
@@ -46,7 +45,7 @@ class PostFragment : Fragment() {
     ): View {
         val rv = binding.PostRV
 
-        rvAdapter = BoardAdapter(requireContext(),boardDataList,uid)
+        rvAdapter = BoardAdapter(requireContext(),boardDataList)
         rv.adapter = rvAdapter
         rv.layoutManager = GridLayoutManager(context,3)
         getFBData()

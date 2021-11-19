@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
@@ -12,8 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import project.android.footstamp.R
-import project.android.footstamp.adapter.CommentLVAdapter
+import project.android.footstamp.adapter.CommentRVAdapter
 import project.android.footstamp.databinding.ActivityBoardInsideBinding
 import project.android.footstamp.model.CommentModel
 import project.android.footstamp.utils.FBAuth
@@ -22,7 +22,7 @@ import project.android.footstamp.utils.FBRef
 class BoardInsideActivity : AppCompatActivity() {
     lateinit var binding: ActivityBoardInsideBinding
     private val commentDataList = mutableListOf<CommentModel>()
-    private lateinit var commentAdapter : CommentLVAdapter
+    private lateinit var commentAdapter : CommentRVAdapter
     private lateinit var key : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +47,9 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.insMemo.setText(memo)
         binding.insDistrict.setText(area+" "+district)
 
-        commentAdapter = CommentLVAdapter(commentDataList,uid)
+        commentAdapter = CommentRVAdapter(commentDataList,uid)
         binding.insRV.adapter = commentAdapter
+        binding.insRV.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         getCommentData(key)
 
         binding.inscomBtn.setOnClickListener{
@@ -66,7 +67,7 @@ class BoardInsideActivity : AppCompatActivity() {
 
         if (uid.equals(myid)){
             binding.indBtn.isVisible = true
-        }else {
+        } else {
             binding.indBtn.isVisible = false
         }
     }
@@ -107,4 +108,5 @@ class BoardInsideActivity : AppCompatActivity() {
         }
         FBRef.commentRef.child(key).addValueEventListener(postListener)
     }
+
 }

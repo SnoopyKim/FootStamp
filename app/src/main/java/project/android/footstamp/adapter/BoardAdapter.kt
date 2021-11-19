@@ -18,7 +18,7 @@ import project.android.footstamp.activity.BoardInsideActivity
 import project.android.footstamp.utils.BoardModel
 import project.android.footstamp.utils.FBAuth
 
-class BoardAdapter(val context: Context, val List : MutableList<BoardModel>, val uid : String)
+class BoardAdapter(val context: Context, val List : MutableList<BoardModel>)
     :RecyclerView.Adapter<BoardAdapter.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoardAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_view_list,parent,false)
@@ -35,7 +35,6 @@ class BoardAdapter(val context: Context, val List : MutableList<BoardModel>, val
         inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
             fun bindItems(item:BoardModel){
                 val date = itemView.findViewById<TextView>(R.id.dateArea)
-                val uid = item.uid
                 val Area = itemView.findViewById<TextView>(R.id.itemview_area)
                 val image = itemView.findViewById<ImageView>(R.id.ItemViewImage)
                 val district = itemView.findViewById<TextView>(R.id.itemview_district)
@@ -65,7 +64,7 @@ class BoardAdapter(val context: Context, val List : MutableList<BoardModel>, val
                     intent.putExtra("district",item.district.toString())
                     intent.putExtra("key",key.toString())
                     intent.putExtra("memo",memo.toString())
-                    intent.putExtra("uid",uid.toString())
+                    intent.putExtra("uid",item.uid.toString())
                     itemView.context.startActivity(intent)
                 }
 

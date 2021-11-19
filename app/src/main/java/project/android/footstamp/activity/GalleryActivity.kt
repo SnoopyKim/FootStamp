@@ -80,16 +80,24 @@ class GalleryActivity : AppCompatActivity() {
             startActivity(intent)
         }
         alertDialog.findViewById<Button>(R.id.dDel)?.setOnClickListener {
-            val uid = FBAuth.getUid()
-            val key =intent.getStringExtra("key")
-            FBRef.uidRef.child(uid).child(key.toString()).removeValue()
-            FBRef.boardRef.child(key.toString()).removeValue()
-            finish()
-            Toast.makeText(applicationContext,"삭제 완료",Toast.LENGTH_SHORT).show()
             alertDialog.dismiss()
+            showDialog3()
 
         }
         alertDialog.findViewById<Button>(R.id.dBoard)?.setOnClickListener {
+            alertDialog.dismiss()
+            showDialog2()
+        }
+
+        }
+    private fun showDialog2() {
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog2, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("일기를 자랑하면 다른사람도 볼 수 있어요 괜찮나요?")
+
+        val alertDialog = mBuilder.show()
+        alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
             val time =intent.getStringExtra("date").toString()
             val Area =intent.getStringExtra("area").toString()
             val District =intent.getStringExtra("district").toString()
@@ -104,7 +112,33 @@ class GalleryActivity : AppCompatActivity() {
             alertDialog.dismiss()
             Toast.makeText(applicationContext,"게시 완료",Toast.LENGTH_SHORT).show()
         }
-
+        alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
+            alertDialog.dismiss()
+            showDialog()
         }
     }
+    private fun showDialog3() {
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog2, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("일기를 삭제하면 되돌릴수 없어요 괜찮나요?")
+
+        val alertDialog = mBuilder.show()
+
+        alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
+            val uid = FBAuth.getUid()
+            val key =intent.getStringExtra("key")
+            FBRef.uidRef.child(uid).child(key.toString()).removeValue()
+            FBRef.boardRef.child(key.toString()).removeValue()
+            finish()
+            Toast.makeText(applicationContext,"삭제 완료",Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
+
+        alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
+            alertDialog.dismiss()
+            showDialog()
+        }
+    }
+}
+}
 

@@ -50,28 +50,28 @@ class ViewFragment2 : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val rv = binding.GalleryRCView2
-        resetUI()
+//        resetUI()
 
-        binding.viewSpn3.adapter =
-            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
-        binding.viewSpn3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                binding.viewSpn4.adapter = ArrayAdapter(requireContext(),
-                    R.layout.support_simple_spinner_dropdown_item,
-                    getDistrictsFromArea(area[position]))
-
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-        }
+//        binding.viewSpn3.adapter =
+//            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, area)
+//        binding.viewSpn3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long,
+//            ) {
+//                binding.viewSpn4.adapter = ArrayAdapter(requireContext(),
+//                    R.layout.support_simple_spinner_dropdown_item,
+//                    getDistrictsFromArea(area[position]))
+//
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        }
         rvAdapter = GalleryViewAdapter2(requireContext(), postDataList)
         rv.adapter = rvAdapter
 
@@ -110,6 +110,7 @@ class ViewFragment2 : Fragment() {
               }
 
                 //데이터 대입
+                postDataList.reverse()
                 rvAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(databaseError: DatabaseError) {
@@ -119,20 +120,11 @@ class ViewFragment2 : Fragment() {
         }
         FBRef.uidRef.child(FBAuth.getUid()).addValueEventListener(postListener)
     }
-    private fun resetUI() {
-        binding.apply {
-            viewSpn3.setSelection(0)
-            viewSpn4.setSelection(0)
-        }
-    }
+//    private fun resetUI() {
+//        binding.apply {
+//            viewSpn3.setSelection(0)
+//            viewSpn4.setSelection(0)
+//        }
+//    }
 
-    fun toDate(day:String) {
-        val string = day
-        val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter.ofPattern("yyyy MM dd", Locale.ENGLISH)
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
-        val Cdate = LocalDate.parse(string,formatter)
-    }
 }
