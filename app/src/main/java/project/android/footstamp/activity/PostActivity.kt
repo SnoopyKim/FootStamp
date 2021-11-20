@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.autofill.Validators.or
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -100,32 +101,35 @@ class PostActivity : AppCompatActivity() {
                 binding.spnDistrict.adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, getDistrictsFromArea(binding.spnArea.selectedItem.toString()))
 
                     binding.btnPost.setOnClickListener {
-            if (imagePick == true) {
-                if (dateSelect == true) {
+                        if(binding.spnArea.selectedItem.toString() != "전체" && binding.spnDistrict.selectedItem.toString()!="전체"){
+                        if (imagePick == true) {
+                        if (dateSelect == true) {
                     val Area = binding.spnArea.selectedItem.toString()
                     val District = binding.spnDistrict.selectedItem.toString()
                     val uid = FBAuth.getUid()
                     val time = binding.DateText.text.toString()
                     val memo = binding.etMemo.text.toString()
                     val key = FBRef.uidRef.push().key.toString()
-                    val url = 
 
-                    FBRef.uidRef
-                        .child(uid).child(key)
-                        .setValue(PostModel(Area, District, time, memo, key))
+                        FBRef.uidRef
+                            .child(uid).child(key)
+                            .setValue(PostModel(Area, District, time, memo, key))
 
                     imageUpload(key)
                     //stampmodel 삭제
                     binding.DateText.text = "날짜 선택하기"
                     resetUI()
-                    Toast.makeText(context,"사진이 게시되었습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "사진이 게시되었습니다", Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
                     Toast.makeText(context, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                 }
-            } else  {
-                Toast.makeText(context,"사진을 선택해주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                            Toast.makeText(context, "사진을 선택해주세요", Toast.LENGTH_SHORT).show()
             }
+            } else{
+                Toast.makeText(context,"지역을 선택해주세요", Toast.LENGTH_SHORT).show()
+                        }
         }
 
         setContentView(binding.root)

@@ -20,6 +20,7 @@ import project.android.footstamp.R
 import project.android.footstamp.adapter.GalleryViewAdapter
 import project.android.footstamp.databinding.FragmentViewBinding
 import project.android.footstamp.utils.*
+import java.util.*
 
 class ViewFragment : Fragment() {
 
@@ -109,6 +110,17 @@ class ViewFragment : Fragment() {
                 for (dataModel in dataSnapshot.children) {
                     val item = dataModel.getValue(PostModel::class.java)
                     postDataList.add(item!!)
+                }
+                postDataList.sortBy { e ->
+                    val calendar = Calendar.getInstance()
+                    var time = e.time.split(" ")
+                    var year = time[0].replace("[^0-9]".toRegex(), "").toInt()
+                    var month = time[1].replace("[^0-9]".toRegex(), "").toInt()
+                    var day = time[2].replace("[^0-9]".toRegex(), "").toInt()
+
+                    calendar.set(year, month, day)
+//                  java.util.concurrent.TimeUnit.MILLISECONDS.toDays(Calendar.timeInMillis) }
+                    calendar.timeInMillis
                 }
                 //데이터 대입
                 postDataList.reverse()

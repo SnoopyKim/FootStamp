@@ -16,6 +16,12 @@ import project.android.footstamp.databinding.ActivityGalleryBinding
 import project.android.footstamp.utils.BoardModel
 import project.android.footstamp.utils.FBAuth
 import project.android.footstamp.utils.FBRef
+import android.view.Gravity
+
+import android.widget.TextView
+
+
+
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -33,9 +39,9 @@ class GalleryActivity : AppCompatActivity() {
         val key =intent.getStringExtra("key")
         val memo = intent.getStringExtra("memo")
 
-        binding.GDateText.setText(date + "에 ")
+        binding.GDateText.setText(date)
         binding.Garea.setText(area)
-        binding.Gdistrict.setText(district + " 에서")
+        binding.Gdistrict.setText(district)
         binding.Gmemo.setText(memo)
         val storageReference = Firebase.storage.reference.child(key + ".png")
 
@@ -59,7 +65,6 @@ class GalleryActivity : AppCompatActivity() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog,null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("게시글 편집")
 
         val alertDialog = mBuilder.show()
         alertDialog.findViewById<Button>(R.id.dEdit)?.setOnClickListener {
@@ -110,7 +115,7 @@ class GalleryActivity : AppCompatActivity() {
                 .child(key)
                 .setValue(BoardModel(Area, District, time, memo, key, uid))
             alertDialog.dismiss()
-            Toast.makeText(applicationContext,"게시 완료",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"게시되었어요",Toast.LENGTH_SHORT).show()
         }
         alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
             alertDialog.dismiss()
@@ -121,24 +126,24 @@ class GalleryActivity : AppCompatActivity() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog2, null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("일기를 삭제하면 되돌릴수 없어요 괜찮나요?")
+            .setTitle("일기를 삭제하면 게시판에서도 사라져요 괜찮나요?")
 
         val alertDialog = mBuilder.show()
-
         alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
             val uid = FBAuth.getUid()
-            val key =intent.getStringExtra("key")
+            val key = intent.getStringExtra("key")
             FBRef.uidRef.child(uid).child(key.toString()).removeValue()
             FBRef.boardRef.child(key.toString()).removeValue()
+            Toast.makeText(applicationContext, "삭제되었습니다", Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
             finish()
-            Toast.makeText(applicationContext,"삭제 완료",Toast.LENGTH_SHORT).show()
-            alertDialog.dismiss()
-
-        alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
-            alertDialog.dismiss()
-            showDialog()
         }
+
+            alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
+                alertDialog.dismiss()
+                showDialog()
+            }
     }
 }
-}
+
 

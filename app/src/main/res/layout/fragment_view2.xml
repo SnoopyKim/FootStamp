@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.ViewFragment2"
-    android:background="@color/backcolor">
+    tools:context=".fragment.ViewFragment2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/GalleryRCView2"

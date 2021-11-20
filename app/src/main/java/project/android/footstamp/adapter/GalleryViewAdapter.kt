@@ -3,6 +3,8 @@ package project.android.footstamp.adapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.icu.text.Transliterator
 import android.util.Log
@@ -68,6 +70,7 @@ class  GalleryViewAdapter(
                             .into(image)
                     }
                 })
+                image.setColorFilter(Color.parseColor("#4D626262"),PorterDuff.Mode.DARKEN)
 
 
                 itemView.setOnClickListener{

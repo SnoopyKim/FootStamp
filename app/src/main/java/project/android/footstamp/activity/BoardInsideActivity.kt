@@ -1,9 +1,14 @@
 package project.android.footstamp.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import project.android.footstamp.R
 import project.android.footstamp.adapter.CommentRVAdapter
 import project.android.footstamp.databinding.ActivityBoardInsideBinding
 import project.android.footstamp.model.CommentModel
@@ -54,6 +60,10 @@ class BoardInsideActivity : AppCompatActivity() {
 
         binding.inscomBtn.setOnClickListener{
             insertComment(key)
+            softkeyboardHide()
+        }
+        binding.indBtn.setOnClickListener{
+            showDialog()
         }
 
         storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
@@ -108,5 +118,29 @@ class BoardInsideActivity : AppCompatActivity() {
         }
         FBRef.commentRef.child(key).addValueEventListener(postListener)
     }
+    fun softkeyboardHide() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.insComarea.windowToken, 0)
+    }
+    private fun showDialog() {
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog2, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("일기를 삭제하면 게시판에서만 사라져요 괜찮나요?")
 
+        val alertDialog = mBuilder.show()
+
+        alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
+            val key = intent.getStringExtra("key")
+            FBRef.boardRef.child(key.toString()).removeValue()
+            finish()
+            Toast.makeText(applicationContext, "삭제되었습니다", Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
+        }
+            alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
+                alertDialog.dismiss()
+                showDialog()
+
+        }
+    }
 }

@@ -11,14 +11,14 @@
         android:layout_weight="1"
         android:background="@drawable/radius"
         android:layout_margin="20dp"
-        android:text="네"/>
+        android:text="괜찮아요"/>
 
     <Button
         android:id="@+id/dno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/radius"
+        android:background="@drawable/radius_gray"
         android:layout_margin="20dp"
         android:text="아니요"/>
 
