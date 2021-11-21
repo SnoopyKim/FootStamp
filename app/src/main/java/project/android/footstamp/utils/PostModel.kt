@@ -1,6 +1,8 @@
 package project.android.footstamp.utils
 
-data class PostModel (
+import android.graphics.Bitmap
+
+data class PostModel(
 
     val area : String = "",
     val district : String = "",
@@ -8,4 +10,4 @@ data class PostModel (
     val memo : String = "",
     val key : String = "",
     val url : String = ""
-        )
+)

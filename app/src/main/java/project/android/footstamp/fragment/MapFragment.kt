@@ -15,6 +15,7 @@ import com.google.android.material.button.MaterialButton
 import project.android.footstamp.R
 import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentMapBinding
+import project.android.footstamp.view.MapView
 import project.android.footstamp.viewmodel.StampViewModel
 import project.android.footstamp.viewmodel.StampViewModelFactory
 
@@ -41,7 +42,7 @@ class MapFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        stampViewModel.loadPosts()
     }
 
     override fun onCreateView(
@@ -52,10 +53,18 @@ class MapFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         sceneRoot = binding.sceneRoot
 
+        stampViewModel.postsLiveData.value
+
         // 구역 선택 장면(Scene) 설정
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
+                stampViewModel.postsLiveData.observe(viewLifecycleOwner, { posts ->
+                    run {
+
+                            findViewById<MapView>(R.id.map_view).setPostList(posts)
+                    }
+                })
                 // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
                 findViewById<LinearLayout>(R.id.ll_map).setOnClickListener {
                     selectedArea = "서부";

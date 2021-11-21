@@ -1,21 +1,25 @@
 package project.android.footstamp.view
 
-import android.content.ContentResolver
 import android.content.Context
 import android.graphics.*
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import project.android.footstamp.R
 import project.android.footstamp.utils.PostModel
-import project.android.footstamp.utils.uriToBitmap
 import kotlin.random.Random
 
 
 class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
+    private var postList: List<PostModel> = listOf()
     private val imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.map)
     private val paint: Paint = Paint().apply { colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.purple_500), PorterDuff.Mode.SRC_IN) }
 
@@ -29,18 +33,38 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawBitmap(extraBitmap, 0f, 0f, paint)
+        val centerX = (width - extraBitmap.width) / 2f
+        val centerY = (height - extraBitmap.height) / 2f
+        paint.color = 0xff424242.toInt()
+        canvas.drawBitmap(extraBitmap, centerX, centerY, paint)
 
-        canvas.drawText("상일이바보sdsdsdsdsdsdsdsdsdsdsd", 0f, 0f, paint)
-        canvas.drawBitmap(getBubbleBitmap(PostModel()), 0f, 0f, Paint())
+        postList.forEach {
+            val randomX = centerX + Random.nextInt(0, width-it.bitmap!!.width)
+            val randomY = centerY + Random.nextInt(0, height-it.bitmap!!.height)
+
+            canvas.drawBitmap(getBubbleBitmap(it), randomX, randomY, Paint())
+        }
     }
 
-    fun getBubbleBitmap(postModel: PostModel): Bitmap {
-        val randomSize = Random.nextInt(100, 500)
-        var image: Bitmap = uriToBitmap(context.contentResolver, Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
-                + "://" + context.resources.getResourcePackageName(R.drawable.img)
-                + '/' + context.resources.getResourceTypeName(R.drawable.img)
-                + '/' + context.resources.getResourceEntryName(R.drawable.img)), randomSize)
+    public fun setPostList(list: List<PostModel>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            postList = list.map {
+                val uri = Tasks.await(FirebaseStorage.getInstance()
+                    .getReference(it.key + ".png").downloadUrl)
+                val randomSize = Random.nextInt(100, 200)
+                it.bitmap = Glide.with(context)
+                    .asBitmap()
+                    .load(uri)
+                    .override(randomSize)
+                    .submit().get()
+                it
+            }
+            invalidate()
+        }
+    }
+
+    fun getBubbleBitmap(post: PostModel): Bitmap {
+        var image: Bitmap = post.bitmap!!
         var output: Bitmap = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(output)
         val paint = Paint()

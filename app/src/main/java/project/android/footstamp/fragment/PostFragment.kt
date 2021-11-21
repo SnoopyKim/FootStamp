@@ -19,6 +19,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.adapter.BoardAdapter
 import project.android.footstamp.databinding.FragmentPostBinding
+
 import project.android.footstamp.utils.BoardModel
 import project.android.footstamp.utils.FBAuth
 import project.android.footstamp.utils.FBRef

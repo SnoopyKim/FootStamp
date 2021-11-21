@@ -1,15 +1,29 @@
 package project.android.footstamp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
-
+import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.repository.StampRepository
-import java.text.SimpleDateFormat
-import java.util.*
+import project.android.footstamp.utils.PostModel
 
 class StampViewModel(private val repository: StampRepository) : ViewModel() {
+
+    val postsLiveData = MutableLiveData<List<PostModel>>()
+    val posts: ArrayList<PostModel> = arrayListOf()
+
+    fun loadPosts() {
+        repository.getAllFromFirebase?.addOnSuccessListener { list ->
+            list.children.forEach {
+                val post = it.getValue<PostModel>()
+                Log.d("ViewModel", "loadPosts: " + post!!.key)
+                posts.add(post!!)
+            }
+            postsLiveData.value = posts
+        }
+    }
 
     val allStamps: LiveData<List<Stamp>> = repository.allStamps.asLiveData()
 
