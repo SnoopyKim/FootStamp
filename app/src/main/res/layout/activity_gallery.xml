@@ -115,7 +115,7 @@
                 <ImageButton
                     android:id="@+id/Gedit"
                     android:src="@drawable/menu_icon"
-                    android:layout_width="40sp"
+                    android:layout_width="30sp"
                     android:layout_height="20sp"
                     android:scaleType="centerInside"
                     android:background="@color/white"

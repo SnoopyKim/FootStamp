@@ -2,6 +2,7 @@ package project.android.footstamp.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,8 +12,10 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.Keep
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import project.android.footstamp.R
@@ -23,6 +26,7 @@ import java.util.*
 class EditActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditBinding
     private lateinit var imageBuffer: ByteArray
+    private var postList: List<PostModel> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -128,7 +132,8 @@ class EditActivity : AppCompatActivity() {
             .child(uid).child(key)
             .setValue(
                 PostModel(Area,District,Date,Memo,key
-                    ))
+                )
+        )
         Toast.makeText(this,"수정 완료", Toast.LENGTH_SHORT).show()
 
         finish()

@@ -139,7 +139,6 @@ class BoardInsideActivity : AppCompatActivity() {
         }
             alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
                 alertDialog.dismiss()
-                showDialog()
 
         }
     }

@@ -20,9 +20,6 @@ import android.view.Gravity
 
 import android.widget.TextView
 
-
-
-
 class GalleryActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityGalleryBinding

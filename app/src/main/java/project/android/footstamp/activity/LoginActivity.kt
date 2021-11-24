@@ -5,7 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import project.android.footstamp.R
@@ -14,7 +21,9 @@ import project.android.footstamp.databinding.FragmentGalleryBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private var googleSignInClient: GoogleSignInClient? = null
     private lateinit var auth: FirebaseAuth
+    private var GOOGLE_LOGIN_CODE = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +35,18 @@ class LoginActivity : AppCompatActivity() {
             val intent= Intent(baseContext, MainActivity::class.java)
             startActivity(intent)
         }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("591458789988-8q5k10cud95t39tpeml69vgkpamm41ho.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        binding.googleLogin.setOnClickListener {
+            googleLogin()
+        }
+
 
         //회원가입 버튼
         binding.JoinBtn.setOnClickListener{
@@ -93,5 +114,45 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
+    }
+    fun googleLogin(){
+        var signInIntent = googleSignInClient?.signInIntent
+        startActivityForResult(signInIntent,GOOGLE_LOGIN_CODE)
+    }
+    fun firebaseAuthWithGoogle(account : GoogleSignInAccount?){
+        var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+        auth?.signInWithCredential(credential)
+            ?.addOnCompleteListener{
+                    task ->
+                if(task.isSuccessful){
+                    // 아이디, 비밀번호 맞을 때
+                    moveMainPage(task.result?.user)
+                }else{
+                    // 틀렸을 때
+                    Toast.makeText(this,task.exception?.message,Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == GOOGLE_LOGIN_CODE){
+            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)!!
+            // 구글API가 넘겨주는 값 받아옴
+
+            if(result.isSuccess) {
+                var accout = result.signInAccount
+                firebaseAuthWithGoogle(accout)
+                Toast.makeText(this,"성공",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this,"실패",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    fun moveMainPage(user: FirebaseUser?){
+        if( user!= null){
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
     }
 }

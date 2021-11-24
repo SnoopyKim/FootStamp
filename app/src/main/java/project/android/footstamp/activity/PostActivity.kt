@@ -149,6 +149,7 @@ class PostActivity : AppCompatActivity() {
         val storage = Firebase.storage
         val storageRef =storage.reference
         val mountainsRef = storageRef.child(key + ".png")
+        val uid = FBAuth.getUid()
 
         val imageView = binding.ivImageSearch
         imageView.isDrawingCacheEnabled = true
@@ -164,7 +165,10 @@ class PostActivity : AppCompatActivity() {
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
+            mountainsRef.downloadUrl.addOnSuccessListener {
+                FBRef.uidRef
+                    .child(uid).child(key).child("url").setValue(it.toString())
+            }
         }
     }
-
 }

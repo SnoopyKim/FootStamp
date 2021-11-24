@@ -6,14 +6,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.MapFragment"
     android:background="@color/backcolor">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setCon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="60dp">
+
+        <ImageView
+            android:id="@+id/setImg"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20sp"
+            android:background="@color/white"
+            android:layout_marginLeft="20sp"
+            android:src="@drawable/addlogo2"
+            app:layout_constraintEnd_toStartOf="@+id/nicknameText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nicknameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:text="nickname"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/setImg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/editNicknameBtn"
+        android:textSize="20sp"
+        android:src="@drawable/write"
+        android:text="닉네임 변경"
+        android:layout_margin="10sp"
+        android:layout_width="20sp"
+        android:background="@color/white"
+        android:layout_height="20sp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nicknameText" />
+
+        <TextView
+            android:id="@+id/setMemo"
+            android:text="한줄 소개를 입력해주세요"
+            android:textColor="@color/black"
+            android:minHeight="40sp"
+            android:layout_marginTop="30sp"
+            android:layout_marginRight="40sp"
+            android:layout_marginLeft="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/nicknameText"
+            android:layout_marginBottom="40dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/logOutBtn"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/radius"
         android:text="로그아웃"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/setCon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
