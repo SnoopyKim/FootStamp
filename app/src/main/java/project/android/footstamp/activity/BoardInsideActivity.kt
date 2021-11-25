@@ -53,7 +53,7 @@ class BoardInsideActivity : AppCompatActivity() {
         binding.insMemo.setText(memo)
         binding.insDistrict.setText(area+" "+district)
 
-        commentAdapter = CommentRVAdapter(commentDataList,uid)
+        commentAdapter = CommentRVAdapter(this,commentDataList,key,uid)
         binding.insRV.adapter = commentAdapter
         binding.insRV.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         getCommentData(key)
@@ -88,12 +88,13 @@ class BoardInsideActivity : AppCompatActivity() {
         //          -CommentData
         //          -CommentData
         //          -CommentData
+        val comkey = FBRef.commentRef.child(key).push().key.toString()
         FBRef
             .commentRef
             .child(key)
-            .push()
+            .child(comkey)
             .setValue(
-                CommentModel(binding.insComarea.text.toString(),FBAuth.getTime(),FBAuth.getUid())
+                CommentModel(binding.insComarea.text.toString(),FBAuth.getTime(),FBAuth.getUid(),comkey)
             )
 
         Toast.makeText(this, "댓글이 작성되었습니다", Toast.LENGTH_SHORT).show()

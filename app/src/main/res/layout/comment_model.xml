@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="20sp"
+        android:layout_marginRight="40sp"
         android:text="time"
         android:textColor="#999999"
         android:textSize="15sp"
@@ -73,6 +73,18 @@
         android:src="@drawable/addlogo2"
         app:layout_constraintStart_toEndOf="@id/comMyimage"
         app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/comDelBtn"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:src="@android:drawable/ic_delete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
