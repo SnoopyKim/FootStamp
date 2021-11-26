@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/map"
-        android:title="@string/map"
-        android:icon="@drawable/ic_map"/>
+        android:icon="@drawable/mapscolor"
+        android:title="@string/지도" />
     <item
         android:id="@+id/gallery"
-        android:title="@string/gallery"
-        android:icon="@drawable/ic_collections"/>
+        android:icon="@drawable/gallerycolor"
+        android:title="@string/갤러리" />
     <item
         android:id="@+id/post"
-        android:title="@string/post"
-        android:icon="@drawable/ic_post"/>
+        android:icon="@drawable/boardcolor"
+        android:title="@string/게시판" />
     <item
         android:id="@+id/setting"
-        android:title="@string/setting"
-        android:icon="@drawable/ic_settings"/>
+        android:icon="@drawable/settingcolor"
+        android:title="@string/설정" />
 
 </menu>

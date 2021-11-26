@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.LoginActivity"
+    android:background="@color/backcolor">
 
     <ImageView
         android:id="@+id/loginlogo"
@@ -36,17 +37,25 @@
         android:hint="password"
         android:layout_marginTop="20dp"/>
 
+    <ImageButton
+        android:id="@+id/googleLogin"
+        android:scaleType="center"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:src="@drawable/googlelogin"
+        android:background="@color/backcolor"
+        android:layout_gravity="center"/>
+
     <Button
         android:id="@+id/LoginBtn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="80dp"
         android:text="로그인"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:background="@color/maincolor"/>
 
     <Button
@@ -59,7 +68,6 @@
         android:text="회원가입"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:background="@color/maincolor" />
 
     <Button
@@ -72,7 +80,6 @@
         android:text="일단 로그인"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:background="@color/maincolor" />
 
 </LinearLayout>

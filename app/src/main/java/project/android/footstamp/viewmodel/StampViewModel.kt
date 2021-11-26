@@ -1,15 +1,29 @@
 package project.android.footstamp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
-
+import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.android.footstamp.model.Stamp
 import project.android.footstamp.repository.StampRepository
-import java.text.SimpleDateFormat
-import java.util.*
+import project.android.footstamp.utils.PostModel
 
 class StampViewModel(private val repository: StampRepository) : ViewModel() {
+
+    val postsLiveData = MutableLiveData<List<PostModel>>()
+    val posts: ArrayList<PostModel> = arrayListOf()
+
+    fun loadPosts() {
+        repository.getAllFromFirebase?.addOnSuccessListener { list ->
+            list.children.forEach {
+                val post = it.getValue<PostModel>()
+                Log.d("ViewModel", "loadPosts: " + post!!.key)
+                posts.add(post!!)
+            }
+            postsLiveData.value = posts
+        }
+    }
 
     val allStamps: LiveData<List<Stamp>> = repository.allStamps.asLiveData()
 
@@ -23,7 +37,7 @@ class StampViewModel(private val repository: StampRepository) : ViewModel() {
     private fun insertAll(stamps: List<Stamp>) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertAll(stamps)
     }
-    fun insertItem(area: String, district: String, date: Date, image: ByteArray, memo: String) {
+    fun insertItem(area: String, district: String, date: String, image: ByteArray, memo: String) {
         insert(getStampEntry(area, district, date, image, memo))
     }
 
@@ -36,14 +50,14 @@ class StampViewModel(private val repository: StampRepository) : ViewModel() {
     }
 
 
-    private fun getStampEntry(area: String, district: String, date: Date, image: ByteArray, memo: String): Stamp {
-        val strDate = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(date)
-        val id = "$area-$district-$strDate-${allStamps.value?.filter { it.area == area && it.district == district }?.size}"
+    private fun getStampEntry(area: String, district: String, date: String, image: ByteArray, memo: String): Stamp {
+
+        val id = "$area-$district-$date-${allStamps.value?.filter { it.area == area && it.district == district }?.size}"
         return Stamp(
             id,
             area,
             district,
-            strDate,
+            date,
             image,
             memo
         )

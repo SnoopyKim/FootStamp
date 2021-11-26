@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "591458789988",
+    "firebase_url": "https://footstamp-7e39a-default-rtdb.firebaseio.com",
     "project_id": "footstamp-7e39a",
     "storage_bucket": "footstamp-7e39a.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "591458789988-5em2q6p5agqe5oq80bsvbe32f261ocic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.android.footstamp",
+            "certificate_hash": "d928f67cb6cbf3bde47691f1d5832854dccfe959"
+          }
+        },
         {
           "client_id": "591458789988-8q5k10cud95t39tpeml69vgkpamm41ho.apps.googleusercontent.com",
           "client_type": 3

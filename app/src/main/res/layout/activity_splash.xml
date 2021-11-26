@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jua"
-        android:text="나만의 작은 여행 앨범"
+        android:text="나만의 작은 여행 일기"
         android:textColor="@color/black"
         android:layout_marginBottom="20dp"
         android:textSize="22sp"

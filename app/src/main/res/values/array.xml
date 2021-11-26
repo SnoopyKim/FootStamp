@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="central_array">
+        <item>중부</item>
+        <item>북부</item>
+        <item>동부</item>
+        <item>남부</item>
+        <item>서부</item>
+    </string-array>
+</resources>
