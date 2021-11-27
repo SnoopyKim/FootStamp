@@ -82,9 +82,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/white"
-        android:src="@android:drawable/ic_delete"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/delete_logo"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

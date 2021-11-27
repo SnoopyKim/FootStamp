@@ -19,67 +19,70 @@
         android:layout_height="200dp"
         android:src="@drawable/stamplogo" />
 
-    <EditText
-        android:id="@+id/EmailArea"
-        android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="E-mail"/>
+<!--    <EditText-->
+<!--        android:id="@+id/EmailArea"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        android:layout_marginRight="50dp"-->
+<!--        android:hint="E-mail"/>-->
 
-    <EditText
-        android:id="@+id/PasswordArea"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:hint="password"
-        android:layout_marginTop="20dp"/>
+<!--    <EditText-->
+<!--        android:id="@+id/PasswordArea"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        android:layout_marginRight="50dp"-->
+<!--        android:hint="password"-->
+<!--        android:layout_marginTop="20dp"/>-->
 
     <ImageButton
         android:id="@+id/googleLogin"
         android:scaleType="center"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
-        android:src="@drawable/googlelogin"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/backcolor"
+        android:src="@drawable/signupwithgoogle"
         android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="80dp"
-        android:text="로그인"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="@color/maincolor"/>
+<!--    <Button-->
+<!--        android:id="@+id/LoginBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginLeft="80dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginRight="80dp"-->
+<!--        android:text="로그인"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:background="@color/maincolor"/>-->
 
-    <Button
-        android:id="@+id/JoinBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="80dp"
-        android:text="회원가입"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="@color/maincolor" />
+<!--    <Button-->
+<!--        android:id="@+id/JoinBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginLeft="80dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginRight="80dp"-->
+<!--        android:text="회원가입"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:background="@color/maincolor" />-->
 
-    <Button
-        android:id="@+id/passBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="80dp"
-        android:text="일단 로그인"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="@color/maincolor" />
+<!--    <Button-->
+<!--        android:id="@+id/passBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_marginLeft="80dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginRight="80dp"-->
+<!--        android:text="일단 로그인"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"-->
+<!--        android:background="@color/maincolor" />-->
 
 </LinearLayout>

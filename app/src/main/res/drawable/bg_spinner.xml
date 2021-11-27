@@ -4,16 +4,16 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/purple_200" />
+                    <solid android:color="#00000000" />
                     <corners android:radius="12dp" />
                     <padding android:right="12dp" />
                 </shape>
             </item>
             <item
-                android:drawable="@drawable/foot_logo2"
-                android:gravity="center|end"
-                android:width="25dp"
-                android:height="25dp" />
+                android:drawable="@drawable/addlogo2"
+                android:gravity="center"
+                android:width="0dp"
+                android:height="0dp" />
         </layer-list>
     </item>
 </selector>
