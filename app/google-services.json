@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "591458789988-9hmhkda43tdvlksm7de0ffdvp3cv75ee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "project.android.footstamp",
+            "certificate_hash": "46a030139351e8ef4bf167811de86dcf88bfffb7"
+          }
+        },
+        {
           "client_id": "591458789988-8q5k10cud95t39tpeml69vgkpamm41ho.apps.googleusercontent.com",
           "client_type": 3
         }

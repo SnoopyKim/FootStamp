@@ -1,12 +1,10 @@
 package project.android.footstamp.activity
 
-import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.android.gms.auth.api.Auth
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -14,13 +12,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityLoginBinding
-import project.android.footstamp.databinding.FragmentGalleryBinding
 
 class LoginActivity : AppCompatActivity() {
     final val RC_SIGN_IN = 1
@@ -43,6 +37,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+            auth.addAuthStateListener {
+                if (it.currentUser != null) {
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                }
+            }
 
 
         binding.googleLogin.setOnClickListener {
@@ -117,7 +116,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun signIn() {
-        var signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
+        var signInIntent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

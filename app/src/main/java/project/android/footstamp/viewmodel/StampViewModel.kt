@@ -22,7 +22,10 @@ class StampViewModel(private val repository: StampRepository) : ViewModel() {
                 posts.add(post!!)
             }
             postsLiveData.value = posts
+        }?.addOnFailureListener {
+            Log.d("ViewModel", "loadPosts failed: ${it.printStackTrace()}")
         }
+        posts.clear()
     }
 
     val allStamps: LiveData<List<Stamp>> = repository.allStamps.asLiveData()

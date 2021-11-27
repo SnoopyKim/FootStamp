@@ -3,30 +3,33 @@ package project.android.footstamp.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
-import com.google.android.material.button.MaterialButton
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.getValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import project.android.footstamp.R
-import project.android.footstamp.StampApplication
 import project.android.footstamp.databinding.FragmentMapBinding
+import project.android.footstamp.utils.PostModel
 import project.android.footstamp.view.MapView
-import project.android.footstamp.viewmodel.StampViewModel
-import project.android.footstamp.viewmodel.StampViewModelFactory
+import kotlin.random.Random
 
 
 class MapFragment : Fragment() {
 
-    private val stampViewModel: StampViewModel by activityViewModels {
-        StampViewModelFactory(
-            (activity?.application as StampApplication).repository
-        )
-    }
+    val myRef = FirebaseDatabase.getInstance().getReference("uid")
+    val posts: MutableLiveData<List<PostModel>> = MutableLiveData()
 
     private var _binding: FragmentMapBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
@@ -42,7 +45,10 @@ class MapFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        stampViewModel.loadPosts()
+        myRef.child(FirebaseAuth.getInstance().currentUser!!.uid).get().addOnSuccessListener { list ->
+            Log.d("MapFragment", "list get!")
+            posts.value = list.children.map { it.getValue<PostModel>()!! }
+        }
     }
 
     override fun onCreateView(
@@ -53,30 +59,59 @@ class MapFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         sceneRoot = binding.sceneRoot
 
-        stampViewModel.postsLiveData.value
-
         // 구역 선택 장면(Scene) 설정
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
-                stampViewModel.postsLiveData.observe(viewLifecycleOwner, { posts ->
-                    run {
-
-                            findViewById<MapView>(R.id.map_view).setPostList(posts)
+                posts.observe(viewLifecycleOwner, {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        var limit = mutableMapOf<String, Int>(
+                            "동부" to 0,
+                            "서부" to 0,
+                            "남부" to 0,
+                            "북부" to 0,
+                            "중부" to 0, )
+                        val postsWithBitmap = it.filter {
+                            val count = limit[it.area]!!
+                            if (count == 3) {
+                                false
+                            } else {
+                                limit[it.area] = count + 1
+                                true
+                            }
+                        }.map {
+                            val randomSize = Random.nextInt(100, 200)
+                            it.bitmap = Glide.with(context)
+                                .asBitmap()
+                                .load(it.url)
+                                .override(randomSize)
+                                .submit().get()
+                            it
+                        }
+                        Log.d("observe", "limit: $limit")
+                        withContext(Dispatchers.Main) {
+                            findViewById<MapView>(R.id.map_view).setPostList(postsWithBitmap)
+                        }
                     }
                 })
                 // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
-                findViewById<LinearLayout>(R.id.ll_map).setOnClickListener {
-                    selectedArea = "서부";
-                    TransitionManager.go(sceneDistrict)
+                findViewById<MapView>(R.id.map_view).setOnTouchListener { v, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        if(event.x < v.width/3 && v.height/3 < event.y && event.y < v.height/3*2) {
+                            selectedArea = "동부";
+                        } else if(event.x > v.width/3*2 && v.height/3 < event.y && event.y < v.height/3*2) {
+                            selectedArea = "서부";
+                        } else if(v.width/3 < event.x  && event.x < v.width/3*2 && event.y > v.height/3*2) {
+                            selectedArea = "남부";
+                        } else if(v.width/3 < event.x  && event.x < v.width/3*2 && event.y < v.height/3) {
+                            selectedArea = "북부";
+                        } else {
+                            selectedArea = "중부";
+                        }
+                        TransitionManager.go(sceneDistrict)
+                    }
+                    true
                 }
-//                findViewById<ConstraintLayout>(R.id.container_area).children.forEach { button ->
-//                    button.setOnClickListener {
-//                        selectedId = it.id
-//                        selectedArea = ((it as ConstraintLayout).getChildAt(0) as TextView).text.toString()
-//                        TransitionManager.go(sceneDistrict)
-//                    }
-//                }
             }
         }
 
@@ -90,7 +125,27 @@ class MapFragment : Fragment() {
                 findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
                     TransitionManager.go(sceneArea)
                 }
+                posts.observe(viewLifecycleOwner, {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val postsWithBitmap = it.filter { it.area == selectedArea }.map {
+                            val randomSize = Random.nextInt(100, 200)
+                            it.bitmap = Glide.with(context)
+                                .asBitmap()
+                                .load(it.url)
+                                .override(randomSize)
+                                .submit().get()
+                            it
+                        }
+                        withContext(Dispatchers.Main) {
+                            findViewById<MapView>(R.id.map_view).setArea(selectedArea)
+                            findViewById<MapView>(R.id.map_view).setPostList(postsWithBitmap)
+                        }
+                    }
+                })
             }
+
+
+
         }
         return binding.root
     }
@@ -105,12 +160,4 @@ class MapFragment : Fragment() {
         _binding = null
     }
 
-    fun addButtonOnLinearLayout(layout: LinearLayout, title: String, params: LinearLayout.LayoutParams) {
-        val btn = MaterialButton(requireContext()).apply {
-            id = View.generateViewId()
-            text = title
-            layoutParams = params
-        }
-        layout.addView(btn)
-    }
 }
