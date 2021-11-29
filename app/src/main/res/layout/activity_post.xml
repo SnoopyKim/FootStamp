@@ -94,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:paddingBottom="60dp"
                 android:orientation="vertical">
 
 
@@ -101,7 +102,6 @@
                     android:id="@+id/iv_image_search"
                     android:layout_width="match_parent"
                     android:layout_height="320sp"
-                    android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_image"/>
 
@@ -110,13 +110,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:gravity="top"
-                    android:minHeight="30dp"
-                    android:layout_weight="1"
                     android:hint="일기를 입력해주세요"
+                    android:windowSoftInputMode="adjustResize"
                     android:textColor="@color/black"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/insImage" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>

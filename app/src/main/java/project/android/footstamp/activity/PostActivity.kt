@@ -135,7 +135,7 @@ class PostActivity : AppCompatActivity() {
             ivImageSearch.setImageResource(R.drawable.foot_logo)
             spnArea.setSelection(0)
             spnDistrict.setSelection(0)
-            etMemo.text.clear()
+//            etMemo.text.clear()
         }
     }
 
