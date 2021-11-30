@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,79 +11,75 @@
 
     <ImageView
         android:id="@+id/loginlogo"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:scaleType="centerCrop"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/stamplogo" />
+        android:layout_marginTop="200dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/addlogo3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/EmailArea"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginLeft="50dp"-->
-<!--        android:layout_marginRight="50dp"-->
-<!--        android:hint="E-mail"/>-->
+    <EditText
+        android:id="@+id/EmailArea"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="E-mail"
+        android:layout_marginRight="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-<!--    <EditText-->
-<!--        android:id="@+id/PasswordArea"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginLeft="50dp"-->
-<!--        android:layout_marginRight="50dp"-->
-<!--        android:hint="password"-->
-<!--        android:layout_marginTop="20dp"/>-->
+    <EditText
+        android:id="@+id/PasswordArea"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="password"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="200dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:text="FootStamp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="184dp"
+        android:gravity="center"
+        android:text="made by 312Prime SnoopyKim"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/googleLogin"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageButton
         android:id="@+id/googleLogin"
-        android:scaleType="center"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
+        android:scaleType="centerInside"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backcolor"
         android:src="@drawable/signupwithgoogle"
+        app:layout_constraintTop_toBottomOf="@id/loginlogo"
         android:layout_gravity="center"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/LoginBtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_marginLeft="80dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginRight="80dp"-->
-<!--        android:text="로그인"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="20sp"-->
-<!--        android:background="@color/maincolor"/>-->
+    <Button
+        android:id="@+id/LoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/maincolor"
+        android:text="로그인"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>-->
 
-<!--    <Button-->
-<!--        android:id="@+id/JoinBtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_marginLeft="80dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginRight="80dp"-->
-<!--        android:text="회원가입"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="20sp"-->
-<!--        android:background="@color/maincolor" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/passBtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:layout_marginLeft="80dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:layout_marginRight="80dp"-->
-<!--        android:text="일단 로그인"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="20sp"-->
-<!--        android:background="@color/maincolor" />-->
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

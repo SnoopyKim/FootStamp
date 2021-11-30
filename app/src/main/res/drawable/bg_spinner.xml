@@ -10,8 +10,8 @@
                 </shape>
             </item>
             <item
-                android:drawable="@drawable/addlogo2"
-                android:gravity="center"
+                android:drawable="@drawable/downlogo"
+                android:gravity="end|center_vertical"
                 android:width="0dp"
                 android:height="0dp" />
         </layer-list>

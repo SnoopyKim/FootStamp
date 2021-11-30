@@ -46,7 +46,6 @@
 
     <ImageButton
         android:id="@+id/editNicknameBtn"
-        android:textSize="20sp"
         android:src="@drawable/write"
         android:text="닉네임 변경"
         android:layout_margin="10sp"
@@ -61,6 +60,7 @@
         <TextView
             android:id="@+id/setMemo"
             android:text="한줄 소개를 입력해주세요"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:minHeight="40sp"
             android:layout_marginTop="30sp"
@@ -87,4 +87,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/setCon" />
+
+    <Button
+        android:id="@+id/logDelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="#00000000"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="회원탈퇴"
+        android:textColor="#999999"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

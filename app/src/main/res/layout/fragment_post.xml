@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.PostFragment"
-    android:background="@color/backcolor">
+    tools:context=".fragment.PostFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
