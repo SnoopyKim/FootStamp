@@ -26,17 +26,17 @@ data class PostModel(
         if (areaPoint == null) {
             var adjX = Random.nextInt(100)
             var adjY = Random.nextInt(100)
-            while (adjX.toDouble().pow(2.0) + adjY.toDouble().pow(2) < 100) {
-                adjX = Random.nextInt(-200, 200)
-                adjY = Random.nextInt(-200, 200)
+            while (adjX.toDouble().pow(2.0) + adjY.toDouble().pow(2) < 10000) {
+                adjX = Random.nextInt(-100, 100)
+                adjY = Random.nextInt(-100, 100)
             }
             val _w = w - bitmap!!.width + adjX
             val _h = h - bitmap!!.height + adjY
             areaPoint = when (area) {
-                "동부" -> Point(0, _h / 2)
-                "서부" -> Point(_w, _h / 2)
-                "남부" -> Point(_w / 2, _h)
-                "북부" -> Point(_w / 2, 0)
+                "동부" -> Point(_w/5*4, _h / 2)
+                "서부" -> Point(_w/5, _h / 2)
+                "남부" -> Point(_w / 2, _h/5*4)
+                "북부" -> Point(_w / 2, _h/5)
                 "중부" -> Point(_w / 2, _h / 2)
                 else -> Point(_w / 2, _h / 2)
             }

@@ -4,25 +4,23 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.service.autofill.Validators.or
 import android.view.View
-import android.widget.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import project.android.footstamp.R
-import androidx.fragment.app.activityViewModels
 import com.google.firebase.storage.ktx.storage
-import project.android.footstamp.StampApplication
+import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityPostBinding
-import project.android.footstamp.databinding.FragmentPostBinding
 import project.android.footstamp.utils.*
-import project.android.footstamp.viewmodel.StampViewModel
-import project.android.footstamp.viewmodel.StampViewModelFactory
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -45,7 +43,6 @@ class PostActivity : AppCompatActivity() {
     private lateinit var imageBuffer: ByteArray
 
     private var area = getAreas()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPostBinding.inflate(layoutInflater)
@@ -106,16 +103,16 @@ class PostActivity : AppCompatActivity() {
                     val memo = binding.etMemo.text.toString()
                     val key = FBRef.uidRef.push().key.toString()
 
+                            binding.pbLoading.visibility = VISIBLE;
+
                         FBRef.uidRef
                             .child(uid).child(key)
                             .setValue(PostModel(Area, District, time, memo, key))
 
                     imageUpload(key)
                     //stampmodel 삭제
-                    binding.DateText.text = "날짜 선택하기"
-                    resetUI()
-                    Toast.makeText(context, "사진이 게시되었습니다", Toast.LENGTH_SHORT).show()
-                    finish()
+//                    resetUI()
+
                 } else {
                     Toast.makeText(context, "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                 }
@@ -130,6 +127,7 @@ class PostActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
     private fun resetUI() {
+        binding.DateText.text = "날짜 선택하기"
         imageBuffer = ByteArray(0)
         binding.apply {
             ivImageSearch.setImageResource(R.drawable.addphoto)
@@ -162,7 +160,15 @@ class PostActivity : AppCompatActivity() {
             // ...
             mountainsRef.downloadUrl.addOnSuccessListener {
                 FBRef.uidRef
-                    .child(uid).child(key).child("url").setValue(it.toString())
+                    .child(uid).child(key).child("url").setValue(it.toString()).addOnSuccessListener {
+                            Toast.makeText(context, "사진이 게시되었습니다", Toast.LENGTH_SHORT).show()
+                            binding.pbLoading.visibility = GONE;
+                            finish()
+                        }.addOnFailureListener {
+                            binding.pbLoading.visibility = GONE;
+                            Toast.makeText(context, "서버에 문제가 생겼습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                        }
+
             }
         }
     }
