@@ -99,19 +99,18 @@
             <ImageButton
                 android:id="@+id/indBtn"
                 android:src="@drawable/menu_icon"
-                android:layout_width="30sp"
-                android:layout_height="20sp"
+                android:layout_width="20sp"
+                android:layout_height="10sp"
                 android:scaleType="centerInside"
                 android:background="@color/white"
                 android:layout_gravity="right"
-
                 android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:id="@+id/insComment"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="댓글"
                 android:textColor="@color/maincolor"
                 android:textSize="18sp"
@@ -121,42 +120,52 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/insRV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:layout_weight="1"
-                android:minHeight="250dp" />
+                android:minHeight="150dp" />
 
         </LinearLayout>
         </ScrollView>
 
-        <EditText
-            android:id="@+id/insComarea"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45sp"
-            android:minHeight="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="80dp"
-            android:hint="댓글을 입력해 주세요"
-            android:textSize="15sp"
-            android:padding="4dp"
-            android:gravity="top"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/textborder"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/inscomBtn"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/inscomBtn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="20dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/addlogo2"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="10dp">
+
+            <EditText
+                android:id="@+id/insComarea"
+                android:layout_width="match_parent"
+                android:layout_height="45sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="65dp"
+                android:background="@drawable/textborder"
+                android:gravity="top"
+                android:hint="댓글을 입력해 주세요"
+                android:minHeight="50dp"
+                android:padding="4dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/inscomBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/inscomBtn"
+                android:layout_width="45dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:scaleType="centerCrop"
+                android:src="@drawable/addlogo2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

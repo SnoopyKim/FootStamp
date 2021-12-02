@@ -1,12 +1,15 @@
 package project.android.footstamp.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import android.widget.EditText
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -85,6 +88,10 @@ class SettingFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+        //회원탈퇴
+        binding.logDelBtn.setOnClickListener {
+            showDialog2()
+        }
         return binding.root
     }
 
@@ -98,15 +105,18 @@ class SettingFragment : Fragment() {
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog3, null)
         val mBuilder = AlertDialog.Builder(requireContext())
             .setView(mDialogView)
-            .setTitle("프로필 편집")
 
         val alertDialog = mBuilder.show()
+        alertDialog.findViewById<EditText>(R.id.dNickEdit)?.setText(binding.nicknameText.text)
+        alertDialog.findViewById<EditText>(R.id.dMemoEdit)?.setText(binding.setMemo.text)
+
         alertDialog.findViewById<Button>(R.id.dok)?.setOnClickListener {
 
             val uid = FBAuth.getUid()
             val name = alertDialog.findViewById<EditText>(R.id.dNickEdit)?.text.toString()
             val memo = alertDialog.findViewById<EditText>(R.id.dMemoEdit)?.text.toString()
             var namerule = true
+
 
             if (name.isEmpty()) {
                 Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -118,7 +128,7 @@ class SettingFragment : Fragment() {
                 namerule = false
             }
 
-            if (name.length < 2){
+            if (name.length < 2) {
                 Toast.makeText(requireContext(), "닉네임은 2자이상으로 설정해야 해요", Toast.LENGTH_SHORT).show()
                 namerule = false
             }
@@ -129,14 +139,50 @@ class SettingFragment : Fragment() {
 
             if (namerule) {
                 FBRef.nicknameRef
-                    .child(uid)
-                    .setValue(NicknameModel(name,memo))
+                        .child(uid)
+                        .setValue(NicknameModel(name, memo))
                 alertDialog.dismiss()
                 Toast.makeText(context, "프로필 변경", Toast.LENGTH_SHORT).show()
-                alertDialog.findViewById<Button>(R.id.dcancel)?.setOnClickListener {
-                    alertDialog.dismiss()
-                }
             }
         }
+        alertDialog.findViewById<Button>(R.id.dcancel)?.setOnClickListener {
+            alertDialog.dismiss()
+        }
+    }
+    private fun showDialog2() {
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog2, null)
+        val mBuilder = AlertDialog.Builder(requireContext())
+                .setView(mDialogView)
+                .setTitle("회원을 탈퇴하면 되돌릴 수 없어요 괜찮나요?")
+
+        val alertDialog = mBuilder.show()
+        alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
+            val user = Firebase.auth.currentUser!!
+            //회원아이디 삭제
+            user.delete()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context,"삭제되었습니다",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            //데이터삭제
+            val uid = FBAuth.getUid()
+            FBRef.uidRef.child(uid).removeValue()
+            FBRef.boardRef.child(uid).removeValue()
+            FBRef.nicknameRef.child(uid).removeValue()
+//            if (FBRef.commentRef.child(uid)) 댓글삭제
+
+            alertDialog.dismiss()
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+
+        }
+        alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
+            alertDialog.dismiss()
+        }
+    }
+    private fun getNickName(){
+        val uid = FBAuth.getUid()
     }
 }

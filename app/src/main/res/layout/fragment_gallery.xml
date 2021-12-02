@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backcolor">
+    android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/GalleryTab"
@@ -25,7 +24,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="날짜별 보기" />
+            android:text="날짜순 보기" />
 
     </com.google.android.material.tabs.TabLayout>
 

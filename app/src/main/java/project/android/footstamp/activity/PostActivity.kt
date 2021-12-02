@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.autofill.Validators.or
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
@@ -35,8 +32,6 @@ class PostActivity : AppCompatActivity() {
     var imagePick = false
     val database = Firebase.database
     val context = this
-    val FBPost = database.getReference("")
-    val storage = Firebase.storage
 //    val gsReference = storage.getReferenceFromUrl("gs://bucket/images/stars.jpg")
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -81,7 +76,7 @@ class PostActivity : AppCompatActivity() {
             pickImage.launch(intent)
         }
 
-            binding.spnArea.adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, area)
+            binding.spnArea.adapter = ArrayAdapter(context,R.layout.support_simple_spinner_dropdown_item, area)
             binding.spnArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -137,10 +132,10 @@ class PostActivity : AppCompatActivity() {
     private fun resetUI() {
         imageBuffer = ByteArray(0)
         binding.apply {
-            ivImageSearch.setImageResource(R.drawable.foot_logo)
+            ivImageSearch.setImageResource(R.drawable.addphoto)
             spnArea.setSelection(0)
             spnDistrict.setSelection(0)
-            etMemo.text.clear()
+//            etMemo.text.clear()
         }
     }
 
@@ -171,4 +166,5 @@ class PostActivity : AppCompatActivity() {
             }
         }
     }
+
 }

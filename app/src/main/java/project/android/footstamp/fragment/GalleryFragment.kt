@@ -55,7 +55,7 @@ class GalleryFragment : Fragment() {
         if(position == 0){
             tab.text = "지역별 보기"
         } else {
-            tab.text = "날짜별 보기"}
+            tab.text = "날짜순 보기"}
         }
             .attach()
 

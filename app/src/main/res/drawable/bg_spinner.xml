@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#00000000" />
+                    <corners android:radius="12dp" />
+                    <padding android:right="12dp" />
+                </shape>
+            </item>
+            <item
+                android:drawable="@drawable/downlogo"
+                android:gravity="end|center_vertical"
+                android:width="0dp"
+                android:height="0dp" />
+        </layer-list>
+    </item>
+</selector>

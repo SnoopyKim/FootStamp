@@ -13,7 +13,7 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/radius"
+        android:background="@drawable/radius_gray"
         android:text="    수정하기    " />
 
     <Button
@@ -23,8 +23,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:background="@drawable/radius"
-        android:layout_margin="10dp"
+        android:background="@drawable/radius_gray"
         android:text="    삭제하기    "/>
 
     <Button
@@ -34,7 +33,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:background="@drawable/radius"
+        android:background="@drawable/radius_gray"
         android:layout_margin="10dp"
         android:text="    자랑하기    "/>
 

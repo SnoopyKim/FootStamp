@@ -1,6 +1,7 @@
 package project.android.footstamp.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -69,7 +70,7 @@ class CommentRVAdapter (val context : Context, val commentList : MutableList<Com
 
 
             if (item.commentuid.equals(uid)){
-                comWriter.isVisible = true
+                comnickname.setTextColor(Color.parseColor("#728BBD"))
             }
             val currentDateTime = Calendar.getInstance().time
             val dateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.KOREA).format(currentDateTime)

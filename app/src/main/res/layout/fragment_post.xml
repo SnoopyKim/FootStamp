@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.PostFragment"
-    android:background="@color/backcolor">
+    tools:context=".fragment.PostFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -24,7 +23,7 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:layout_weight="1"
-            android:text="여행게시판"
+            android:text="모두의 게시판"
             android:textSize="18sp" />
     </LinearLayout>
 
