@@ -105,15 +105,18 @@ class SettingFragment : Fragment() {
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog3, null)
         val mBuilder = AlertDialog.Builder(requireContext())
             .setView(mDialogView)
-            .setTitle("프로필 편집")
 
         val alertDialog = mBuilder.show()
+        alertDialog.findViewById<EditText>(R.id.dNickEdit)?.setText(binding.nicknameText.text)
+        alertDialog.findViewById<EditText>(R.id.dMemoEdit)?.setText(binding.setMemo.text)
+
         alertDialog.findViewById<Button>(R.id.dok)?.setOnClickListener {
 
             val uid = FBAuth.getUid()
             val name = alertDialog.findViewById<EditText>(R.id.dNickEdit)?.text.toString()
             val memo = alertDialog.findViewById<EditText>(R.id.dMemoEdit)?.text.toString()
             var namerule = true
+
 
             if (name.isEmpty()) {
                 Toast.makeText(requireContext(), "닉네임을 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -153,8 +156,6 @@ class SettingFragment : Fragment() {
                 .setTitle("회원을 탈퇴하면 되돌릴 수 없어요 괜찮나요?")
 
         val alertDialog = mBuilder.show()
-        val redbtn = alertDialog.findViewById<Button>(R.id.dyes)
-        redbtn?.setBackgroundResource(R.drawable.radius_red)
         alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
             val user = Firebase.auth.currentUser!!
             //회원아이디 삭제
@@ -180,5 +181,8 @@ class SettingFragment : Fragment() {
         alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
             alertDialog.dismiss()
         }
+    }
+    private fun getNickName(){
+        val uid = FBAuth.getUid()
     }
 }

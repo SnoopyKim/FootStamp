@@ -132,7 +132,7 @@ class PostActivity : AppCompatActivity() {
     private fun resetUI() {
         imageBuffer = ByteArray(0)
         binding.apply {
-            ivImageSearch.setImageResource(R.drawable.foot_logo)
+            ivImageSearch.setImageResource(R.drawable.addphoto)
             spnArea.setSelection(0)
             spnDistrict.setSelection(0)
 //            etMemo.text.clear()

@@ -5,14 +5,22 @@
       <map>
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/bg_spinner.xml" value="0.26979166666666665" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/bg_spinner_area.xml" value="0.26614583333333336" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/pause_menu.xml" value="0.26979166666666665" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/radius.xml" value="0.26979166666666665" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/radius_gray.xml" value="0.26979166666666665" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/drawable/radius_red.xml" value="0.26979166666666665" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_board_inside.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_edit.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_gallery.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.10520833333333333" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_post.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_splash.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.25317028985507245" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/comment_model.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/custom_dialog.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/custom_dialog2.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/custom_dialog3.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.4" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.10520833333333333" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.25364583333333335" />
@@ -21,28 +29,26 @@
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/fragment_view2.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.2" />
+        <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/pause_menu.xml" value="0.1" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/spinner_layout.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
-        <entry key="..\:/FootStamp/app/src/main/res/drawable/bg_spinner.xml" value="0.5697916666666667" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/bg_spinner_area.xml" value="0.5697916666666667" />
-        <entry key="..\:/FootStamp/app/src/main/res/drawable/ic_image_search.xml" value="0.5697916666666667" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/radius.xml" value="0.2861111111111111" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_gray.xml" value="0.31574074074074077" />
-        <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_red.xml" value="0.5697916666666667" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_ref.xml" value="0.42962962962962964" />
         <entry key="..\:/FootStamp/app/src/main/res/drawable/textborder.xml" value="0.565625" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_board_inside.xml" value="0.553125" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_edit.xml" value="0.5492307692307692" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_gallery.xml" value="0.5536458333333333" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.5" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.225" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.5492307692307692" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_post.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_splash.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/bg_spinner_area.xml" value="0.5536458333333333" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/comment_model.xml" value="0.5" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/comment_model.xml" value="0.2861111111111111" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog.xml" value="0.5536458333333333" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog2.xml" value="0.5" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog2.xml" value="0.15092592592592594" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog3.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.25" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.2796296296296296" />
