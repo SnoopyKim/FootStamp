@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
@@ -80,11 +81,12 @@ class MapFragment : Fragment() {
                                 true
                             }
                         }.map {
-                            val randomSize = Random.nextInt(100, 200)
+                            val randomSize = Random.nextInt(150, 200)
                             it.bitmap = Glide.with(context)
                                 .asBitmap()
                                 .load(it.url)
                                 .override(randomSize)
+                                    .apply(RequestOptions.circleCropTransform())
                                 .submit().get()
                             it
                         }
