@@ -1,10 +1,13 @@
 package project.android.footstamp.view
 
+import android.app.ActionBar
 import android.content.Context
 import android.graphics.*
+import android.text.Layout
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import project.android.footstamp.R
 import project.android.footstamp.utils.PostModel
 
@@ -13,7 +16,7 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private lateinit var extraCanvas: Canvas
     private lateinit var extraBitmap: Bitmap
     private var postList: List<PostModel> = listOf()
-    private val imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.map)
+    private var imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.map)
     private val paint: Paint = Paint() //.apply { colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.purple_500), PorterDuff.Mode.SRC_IN) }
 
     private var area = "all"
@@ -21,10 +24,16 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         if(::extraBitmap.isInitialized) extraBitmap.recycle()
+        setCanvas(w)
+    }
+
+    fun setCanvas(w: Int) {
         val factor = w.toDouble() / imageBitmap.width
         extraBitmap = Bitmap.createScaledBitmap(imageBitmap, w, (imageBitmap.height * factor).toInt(), true)
+        layoutParams.height = extraBitmap.height
         extraCanvas = Canvas(extraBitmap)
     }
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -41,7 +50,15 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
         }
     }
 
-    fun setArea(area: String) { this.area = area }
+    fun setArea(area: String) { this.area = area
+        when(area) {
+            "동부" -> imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.east)
+            "서부" -> imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.west)
+            "남부" -> imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.south)
+            "북부" -> imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.north)
+            "중부" -> imageBitmap = BitmapFactory.decodeResource(resources, R.drawable.central)
+        }
+    }
     fun setPostList(list: List<PostModel>) {
         Log.d("MapView", "postList: ${postList.size} list: ${list.size}")
         postList = listOf()
