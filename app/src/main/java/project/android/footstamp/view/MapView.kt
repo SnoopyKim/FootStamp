@@ -44,7 +44,11 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
 
 
         postList.forEach {
-            val point = if (area == "all") it.getPointForArea(width, height) else it.getPointForDistrict(width, height)
+            val point = if (area == "all") {
+                it.getPointForArea(extraBitmap.width, extraBitmap.height, width/2f, height/2f)
+            } else {
+                it.getPointForDistrict(extraBitmap.width, extraBitmap.height, width/2f, height/2f)
+            }
 
             canvas.drawBitmap(getBubbleBitmap(it), point.x.toFloat(), point.y.toFloat(), Paint())
         }
