@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import org.w3c.dom.Text
 import project.android.footstamp.R
 import project.android.footstamp.model.CommentModel
 import project.android.footstamp.utils.BoardModel
@@ -22,7 +23,7 @@ import project.android.footstamp.utils.NicknameModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CommentRVAdapter (val context : Context, val commentList : MutableList<CommentModel>,val key: String, val uid : String)
+class CommentRVAdapter (val context : Context, val commentList : MutableList<CommentModel>, val key: String, val uid : String)
     : RecyclerView.Adapter<CommentRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentRVAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.comment_model,parent,false)
@@ -67,7 +68,24 @@ class CommentRVAdapter (val context : Context, val commentList : MutableList<Com
             }
             FBRef.nicknameRef.child(item.commentuid).addValueEventListener(postListener)
 
+            comnickname.setOnClickListener {
 
+                val postListener = object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        // Get Post object and use the values to update the UI
+                        val nameModel = dataSnapshot.getValue(NicknameModel::class.java)
+                        try {
+                            showCommentUser(NicknameModel(nameModel?.nickname.toString(),nameModel?.memo.toString()))
+                        } catch (e: Exception) {
+
+                        }
+                    }
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Getting Post failed, log a message
+                    }
+                }
+                FBRef.nicknameRef.child(item.commentuid).addValueEventListener(postListener)
+            }
 
             if (item.commentuid.equals(uid)){
                 comnickname.setTextColor(Color.parseColor("#728BBD"))
@@ -130,6 +148,20 @@ class CommentRVAdapter (val context : Context, val commentList : MutableList<Com
         alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
             alertDialog.dismiss()
 
+        }
+    }
+
+    private fun showCommentUser(item:NicknameModel){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog4, null)
+        val mBuilder = AlertDialog.Builder(context)
+            .setView(mDialogView)
+        val alertDialog = mBuilder.show()
+
+        alertDialog.findViewById<TextView>(R.id.cNickname)?.setText(item.nickname)
+        alertDialog.findViewById<TextView>(R.id.cMemo)?.setText(item.memo)
+
+        alertDialog.findViewById<Button>(R.id.cok)?.setOnClickListener {
+            alertDialog.dismiss()
         }
     }
 }
