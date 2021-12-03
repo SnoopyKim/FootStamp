@@ -7,14 +7,97 @@
     tools:context=".fragment.MapFragment"
     android:background="@color/backcolor">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_east"
+            android:gravity="center"
+            android:text="전체"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_east"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_all"
+            app:layout_constraintEnd_toStartOf="@+id/tv_west"
+            android:gravity="center"
+            android:text="동부"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_west"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/tv_east"
+            app:layout_constraintEnd_toStartOf="@+id/tv_south"
+            android:gravity="center"
+            android:text="서부"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_south"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_west"
+            app:layout_constraintEnd_toStartOf="@+id/tv_north"
+            android:gravity="center"
+            android:text="남부"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_north"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_south"
+            app:layout_constraintEnd_toStartOf="@+id/tv_center"
+            android:gravity="center"
+            android:text="북부"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_north"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="중부"
+            android:textColor="@color/maincolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
         android:id="@+id/scene_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cl_tab">
 
     </FrameLayout>
 

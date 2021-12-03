@@ -1,7 +1,5 @@
 package project.android.footstamp.utils
 
-import android.graphics.Point
-
 val listOfArea: Map<String, List<String>> = mapOf(
     "전체" to listOf("전체"),
     "동부" to listOf("전체","강동구", "광진구", "동대문구", "성동구", "중랑구"),
@@ -18,8 +16,8 @@ fun getDistrictsFromArea(area: String): List<String> = listOfArea[area] ?: listO
 fun getAreaFromDistrict(district: String): String = listOfArea.filter { it.value.contains(district) }.keys.first()
 
 val coordMap: Map<String, Pair<Double, Double>> = mapOf(
-    "동부" to Pair(-0.28, 0.17),
-    "서부" to Pair(0.33, -0.01),
+    "동부" to Pair(0.33, -0.01),
+    "서부" to Pair(-0.28, 0.17),
     "남부" to Pair(0.16, 0.34),
     "북부" to Pair(0.16, -0.28),
     "중부" to Pair(-0.10, -0.04),

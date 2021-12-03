@@ -1,13 +1,10 @@
 package project.android.footstamp.view
 
-import android.app.ActionBar
 import android.content.Context
 import android.graphics.*
-import android.text.Layout
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import project.android.footstamp.R
 import project.android.footstamp.utils.PostModel
 import kotlin.math.pow
@@ -64,11 +61,11 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
                     )
                 }
 
-//                pointList.forEach { _point ->
-//                    isDuple = (point.x - _point.x).toDouble().pow(2) + (point.y - _point.y).toDouble()
-//                        .pow(2) <= 10000
-//                }
-                Log.d("MapView", "point for ${it.key}")
+                pointList.forEach { _point ->
+                    isDuple = (point.x - _point.x).toDouble().pow(2) + (point.y - _point.y).toDouble()
+                        .pow(2) <= 10000
+                }
+                Log.d("MapView", "point for ${it.key} $isDuple")
             }
             while (isDuple)
             pointList.add(point)

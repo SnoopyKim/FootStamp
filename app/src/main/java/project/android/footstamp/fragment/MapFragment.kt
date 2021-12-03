@@ -1,12 +1,13 @@
 package project.android.footstamp.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.transition.Scene
@@ -40,7 +41,7 @@ class MapFragment : Fragment() {
     lateinit var sceneArea: Scene
     lateinit var sceneDistrict: Scene
 
-    private lateinit var selectedArea: String
+    private var selectedArea: String = "전체"
     private var selectedId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class MapFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -60,6 +62,78 @@ class MapFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         sceneRoot = binding.sceneRoot
 
+        binding.tvAll.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+        binding.tvAll.setOnClickListener {
+            if (selectedArea != "전체") {
+                binding.tvEast.background = null
+                binding.tvWest.background = null
+                binding.tvSouth.background = null
+                binding.tvNorth.background = null
+                binding.tvCenter.background = null
+                binding.tvAll.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                TransitionManager.go(sceneArea)
+            }
+        }
+        binding.tvEast.setOnClickListener {
+            if (selectedArea != "동부") {
+                selectedArea = "동부"
+                binding.tvEast.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                binding.tvWest.background = null
+                binding.tvSouth.background = null
+                binding.tvNorth.background = null
+                binding.tvCenter.background = null
+                binding.tvAll.background = null
+                TransitionManager.go(sceneDistrict)
+            }
+        }
+        binding.tvWest.setOnClickListener {
+            if (selectedArea != "서부") {
+                selectedArea = "서부"
+                binding.tvEast.background = null
+                binding.tvWest.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                binding.tvSouth.background = null
+                binding.tvNorth.background = null
+                binding.tvCenter.background = null
+                binding.tvAll.background = null
+                TransitionManager.go(sceneDistrict)
+            }
+        }
+        binding.tvSouth.setOnClickListener {
+            if (selectedArea != "남부") {
+                selectedArea = "남부"
+                binding.tvEast.background = null
+                binding.tvWest.background = null
+                binding.tvSouth.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                binding.tvNorth.background = null
+                binding.tvCenter.background = null
+                binding.tvAll.background = null
+                TransitionManager.go(sceneDistrict)
+            }
+        }
+        binding.tvNorth.setOnClickListener {
+            if (selectedArea != "북부") {
+                selectedArea = "북부"
+                binding.tvEast.background = null
+                binding.tvWest.background = null
+                binding.tvSouth.background = null
+                binding.tvNorth.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                binding.tvCenter.background = null
+                binding.tvAll.background = null
+                TransitionManager.go(sceneDistrict)
+            }
+        }
+        binding.tvCenter.setOnClickListener {
+            if (selectedArea != "중부") {
+                selectedArea = "중부"
+                binding.tvEast.background = null
+                binding.tvWest.background = null
+                binding.tvSouth.background = null
+                binding.tvNorth.background = null
+                binding.tvCenter.background = resources.getDrawable(R.drawable.white_circle, resources.newTheme())
+                binding.tvAll.background = null
+                TransitionManager.go(sceneDistrict)
+            }
+        }
         // 구역 선택 장면(Scene) 설정
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
@@ -83,7 +157,7 @@ class MapFragment : Fragment() {
                                 true
                             }
                         }.map {
-                            val randomSize = Random.nextInt(100, 150)
+                            val randomSize = Random.nextInt(120, 160)
                             it.bitmap = Glide.with(context)
                                 .asBitmap()
                                 .load(it.url)
@@ -125,19 +199,16 @@ class MapFragment : Fragment() {
             Log.d(javaClass.name, "selectedId: $selectedId | selectedArea: $selectedArea")
 
             sceneDistrict.sceneRoot.apply {
-                // 뒤로가기 버튼 설정
-                findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
-                    TransitionManager.go(sceneArea)
-                }
                 findViewById<MapView>(R.id.map_view).setArea(selectedArea)
                 posts.observe(viewLifecycleOwner, {
                     CoroutineScope(Dispatchers.IO).launch {
                         val postsWithBitmap = it.filter { it.area == selectedArea }.map {
-                            val randomSize = Random.nextInt(100, 200)
+                            val randomSize = Random.nextInt(120, 160)
                             it.bitmap = Glide.with(context)
                                 .asBitmap()
                                 .load(it.url)
                                 .override(randomSize)
+                                .apply(RequestOptions.circleCropTransform())
                                 .submit().get()
                             it
                         }
