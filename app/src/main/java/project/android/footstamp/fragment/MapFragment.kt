@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
@@ -63,6 +64,8 @@ class MapFragment : Fragment() {
         sceneArea = Scene.getSceneForLayout(sceneRoot, R.layout.scene_map_area, requireContext())
         sceneArea.setEnterAction {
             sceneArea.sceneRoot.apply {
+                val mapView: MapView = findViewById(R.id.map_view)
+
                 posts.observe(viewLifecycleOwner, {
                     CoroutineScope(Dispatchers.IO).launch {
                         var limit = mutableMapOf<String, Int>(
@@ -80,26 +83,27 @@ class MapFragment : Fragment() {
                                 true
                             }
                         }.map {
-                            val randomSize = Random.nextInt(100, 200)
+                            val randomSize = Random.nextInt(100, 150)
                             it.bitmap = Glide.with(context)
                                 .asBitmap()
                                 .load(it.url)
                                 .override(randomSize)
+                                    .apply(RequestOptions.circleCropTransform())
                                 .submit().get()
                             it
                         }
                         Log.d("observe", "limit: $limit")
                         withContext(Dispatchers.Main) {
-                            findViewById<MapView>(R.id.map_view).setPostList(postsWithBitmap)
+                            mapView.setPostList(postsWithBitmap)
                         }
                     }
                 })
                 // 전체 뷰 안에 있는 뷰들에 클릭 리스너 설정
-                findViewById<MapView>(R.id.map_view).setOnTouchListener { v, event ->
+                mapView.setOnTouchListener { v, event ->
                     if (event.action == MotionEvent.ACTION_DOWN) {
-                        if(event.x < v.width/3 && v.height/3 < event.y && event.y < v.height/3*2) {
+                        if(event.x > v.width/3*2 && v.height/3 < event.y && event.y < v.height/3*2) {
                             selectedArea = "동부";
-                        } else if(event.x > v.width/3*2 && v.height/3 < event.y && event.y < v.height/3*2) {
+                        } else if(event.x < v.width/3 && v.height/3 < event.y && event.y < v.height/3*2) {
                             selectedArea = "서부";
                         } else if(v.width/3 < event.x  && event.x < v.width/3*2 && event.y > v.height/3*2) {
                             selectedArea = "남부";
@@ -125,6 +129,7 @@ class MapFragment : Fragment() {
                 findViewById<ImageButton>(R.id.btn_back).setOnClickListener {
                     TransitionManager.go(sceneArea)
                 }
+                findViewById<MapView>(R.id.map_view).setArea(selectedArea)
                 posts.observe(viewLifecycleOwner, {
                     CoroutineScope(Dispatchers.IO).launch {
                         val postsWithBitmap = it.filter { it.area == selectedArea }.map {
@@ -137,7 +142,7 @@ class MapFragment : Fragment() {
                             it
                         }
                         withContext(Dispatchers.Main) {
-                            findViewById<MapView>(R.id.map_view).setArea(selectedArea)
+
                             findViewById<MapView>(R.id.map_view).setPostList(postsWithBitmap)
                         }
                     }

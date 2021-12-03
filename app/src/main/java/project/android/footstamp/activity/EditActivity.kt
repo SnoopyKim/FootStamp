@@ -140,7 +140,7 @@ class EditActivity : AppCompatActivity() {
                 )
         )
         Toast.makeText(this,"수정 완료", Toast.LENGTH_SHORT).show()
-
+        
         finish()
     }
     private fun imageUpload (key : String){

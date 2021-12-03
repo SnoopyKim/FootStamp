@@ -43,14 +43,9 @@ class GalleryActivity : AppCompatActivity() {
         binding.Gmemo.setText(memo)
         val storageReference = Firebase.storage.reference.child(key + ".png")
 
-        storageReference.downloadUrl.addOnCompleteListener(OnCompleteListener { task ->
-            if (task.isSuccessful) {
-
-                Glide.with(this)
-                    .load(task.result)
-                    .into(binding.Gimage)
-            }
-        })
+        Glide.with(this)
+            .load(url)
+            .into(binding.Gimage)
 
         binding.Gedit.setOnClickListener {
             showDialog()
@@ -59,7 +54,13 @@ class GalleryActivity : AppCompatActivity() {
         }
     }
 
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        finish()
+//    }
+
     private fun showDialog(){
+
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog,null)
         val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
@@ -81,7 +82,7 @@ class GalleryActivity : AppCompatActivity() {
             intent.putExtra("memo",memo.toString())
             intent.putExtra("url",url.toString())
             alertDialog.dismiss()
-
+            finish()
             startActivity(intent)
         }
         alertDialog.findViewById<Button>(R.id.dDel)?.setOnClickListener {
