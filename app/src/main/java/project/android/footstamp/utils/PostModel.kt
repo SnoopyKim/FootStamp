@@ -24,32 +24,32 @@ data class PostModel(
 
     fun getPointForArea(w: Int, h: Int, cx: Float, cy: Float): Point {
         if (areaPoint == null) {
-            var adjX = Random.nextInt(100)
-            var adjY = Random.nextInt(100)
+            var adjX = Random.nextInt(-100, 100)
+            var adjY = Random.nextInt(-100, 100)
             while (adjX.toDouble().pow(2.0) + adjY.toDouble().pow(2) < 10000) {
                 adjX = Random.nextInt(-100, 100)
                 adjY = Random.nextInt(-100, 100)
             }
             val areaCoord = coordMap[area]
-            val x = (cx + w*areaCoord!!.first).toInt()
-            val y = (cy + h*areaCoord.second).toInt()
-            areaPoint = Point(x-bitmap!!.width/2, y-bitmap!!.height/2)
+            val x = (cx + w*areaCoord!!.first).toInt() + adjX - bitmap!!.width/2
+            val y = (cy + h*areaCoord.second).toInt() + adjY - bitmap!!.height/2
+            areaPoint = Point(x, y)
         }
         return areaPoint!!
     }
     
     fun getPointForDistrict(w: Int, h: Int, cx: Float, cy: Float): Point {
         if (districtPoint == null) {
-            var adjX = Random.nextInt(100)
-            var adjY = Random.nextInt(100)
-            while (adjX.toDouble().pow(2.0) + adjY.toDouble().pow(2) < 100) {
-                adjX = Random.nextInt(-200, 200)
-                adjY = Random.nextInt(-200, 200)
+            var adjX = Random.nextInt(-100, 100)
+            var adjY = Random.nextInt(-100, 100)
+            while (adjX.toDouble().pow(2.0) + adjY.toDouble().pow(2) < 10000) {
+                adjX = Random.nextInt(-100, 100)
+                adjY = Random.nextInt(-100, 100)
             }
             val areaCoord = coordMap[district]
-            val x = (cx + w*areaCoord!!.first).toInt()
-            val y = (cy + h*areaCoord.second).toInt()
-            districtPoint = Point(x-bitmap!!.width/2, y-bitmap!!.height/2)
+            val x = (cx + w*areaCoord!!.first).toInt() + adjX - bitmap!!.width/2
+            val y = (cy + h*areaCoord.second).toInt() + adjY - bitmap!!.height/2
+            districtPoint = Point(x, y)
         }
         return districtPoint!!
     }
