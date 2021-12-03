@@ -3,6 +3,7 @@ package project.android.footstamp.activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,6 +22,7 @@ import com.google.firebase.storage.ktx.storage
 import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityEditBinding
 import project.android.footstamp.utils.*
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 class EditActivity : AppCompatActivity() {
@@ -47,6 +49,7 @@ class EditActivity : AppCompatActivity() {
         val district =intent.getStringExtra("district").toString()
         val key =intent.getStringExtra("key").toString()
         val memo = intent.getStringExtra("memo").toString()
+        val url = intent.getStringExtra("url").toString()
         val storageReference = Firebase.storage.reference.child(key + ".png")
         val contexta = this
         var earea = getAreas()
@@ -116,7 +119,9 @@ class EditActivity : AppCompatActivity() {
             dlg.show()
         }
         binding.Epost.setOnClickListener {
+            binding.edLoading.visibility = View.VISIBLE;
             editBoardData(key)
+            imageUpload(key)
         }
 
     }
@@ -137,5 +142,40 @@ class EditActivity : AppCompatActivity() {
         Toast.makeText(this,"수정 완료", Toast.LENGTH_SHORT).show()
 
         finish()
+    }
+    private fun imageUpload (key : String){
+
+        val storage = Firebase.storage
+        val storageRef =storage.reference
+        val mountainsRef = storageRef.child(key + ".png")
+        val uid = FBAuth.getUid()
+
+        val imageView = binding.Eimage
+        imageView.isDrawingCacheEnabled = true
+        imageView.buildDrawingCache()
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+            mountainsRef.downloadUrl.addOnSuccessListener {
+                FBRef.uidRef
+                        .child(uid).child(key).child("url").setValue(it.toString()).addOnSuccessListener {
+                            Toast.makeText(this, "사진이 수정되었습니다", Toast.LENGTH_SHORT).show()
+                            binding.edLoading.visibility = View.GONE;
+                            finish()
+                        }.addOnFailureListener {
+                            binding.edLoading.visibility = View.GONE;
+                            Toast.makeText(this, "서버에 문제가 생겼습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                        }
+
+            }
+        }
     }
 }

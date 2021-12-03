@@ -35,6 +35,7 @@ class GalleryActivity : AppCompatActivity() {
         val district =intent.getStringExtra("district")
         val key =intent.getStringExtra("key")
         val memo = intent.getStringExtra("memo")
+        val url = intent.getStringExtra("url")
 
         binding.GDateText.setText(date)
         binding.Garea.setText(area)
@@ -70,6 +71,7 @@ class GalleryActivity : AppCompatActivity() {
             val district =intent.getStringExtra("district")
             val key =intent.getStringExtra("key")
             val memo = intent.getStringExtra("memo")
+            val url = intent.getStringExtra("url")
             val intent = Intent(this,EditActivity::class.java)
 
             intent.putExtra("date",date.toString())
@@ -77,6 +79,7 @@ class GalleryActivity : AppCompatActivity() {
             intent.putExtra("district",district.toString())
             intent.putExtra("key",key.toString())
             intent.putExtra("memo",memo.toString())
+            intent.putExtra("url",url.toString())
             alertDialog.dismiss()
 
             startActivity(intent)

@@ -76,6 +76,7 @@ class  GalleryViewAdapter2(val context : Context,
                 intent.putExtra("district",district.text)
                 intent.putExtra("key",key)
                 intent.putExtra("memo",memo.text)
+                intent.putExtra("url",item.url)
                 itemView.context.startActivity(intent)
 
                 var day = GregorianCalendar()
