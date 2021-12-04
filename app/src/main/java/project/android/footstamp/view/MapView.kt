@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import project.android.footstamp.R
 import project.android.footstamp.utils.PostModel
-import kotlin.math.pow
 
 
 class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
@@ -40,11 +39,11 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
         paint.color = 0xff424242.toInt()
         canvas.drawBitmap(extraBitmap, centerX, centerY, paint)
 
-        var pointList: ArrayList<Point> = arrayListOf()
+//        var pointList: ArrayList<Point> = arrayListOf()
         postList.forEach { it ->
             var point: Point
-            var isDuple: Boolean = false
-            do {
+//            var isDuple: Boolean = false
+//            do {
                 point = if (area == "all") {
                     it.getPointForArea(
                         extraBitmap.width,
@@ -61,14 +60,14 @@ class MapView(context: Context, attrs: AttributeSet): View(context, attrs) {
                     )
                 }
 
-                pointList.forEach { _point ->
-                    isDuple = (point.x - _point.x).toDouble().pow(2) + (point.y - _point.y).toDouble()
-                        .pow(2) <= 10000
-                }
-                Log.d("MapView", "point for ${it.key} $isDuple")
-            }
-            while (isDuple)
-            pointList.add(point)
+//                pointList.forEach { _point ->
+//                    isDuple = (point.x - _point.x).toDouble().pow(2) + (point.y - _point.y).toDouble()
+//                        .pow(2) <= 2500 || isDuple
+//                }
+//                Log.d("MapView", "point for ${it.key} $isDuple")
+//            }
+//            while (isDuple)
+//            pointList.add(point)
 
             canvas.drawBitmap(getBubbleBitmap(it), point.x.toFloat(), point.y.toFloat(), Paint())
         }
