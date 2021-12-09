@@ -84,7 +84,7 @@ class  GalleryViewAdapter(
                     itemView.context.startActivity(intent)
 
                 }
-                if (currentArea.equals("전체")){
+                if (currentArea.equals("지역")){
                         con.maxHeight = 1000
                 } else{
                     if (!item.area.equals(currentArea)){
@@ -93,7 +93,7 @@ class  GalleryViewAdapter(
                         con.maxHeight = 1000
                     }
                 }
-                if(currentDistrict.equals("전체")){
+                if(currentDistrict.equals("구역")){
                 } else{
                     if (!item.district.equals(currentDistrict)){
                         con.maxHeight = 0

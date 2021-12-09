@@ -21,23 +21,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/EmailArea"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="E-mail"
-        android:layout_marginRight="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+<!--    <EditText-->
+<!--        android:id="@+id/EmailArea"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:hint="E-mail"-->
+<!--        android:layout_marginRight="200dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
-    <EditText
-        android:id="@+id/PasswordArea"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="password"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginLeft="200dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+<!--    <EditText-->
+<!--        android:id="@+id/PasswordArea"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:hint="password"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginLeft="200dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent" />-->
 
     <TextView
         android:layout_width="match_parent"
@@ -73,13 +73,13 @@
         app:layout_constraintTop_toBottomOf="@id/loginlogo"
         android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/maincolor"
-        android:text="로그인"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/LoginBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:background="@color/maincolor"-->
+<!--        android:text="로그인"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="20sp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
