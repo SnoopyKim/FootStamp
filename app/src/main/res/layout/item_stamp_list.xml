@@ -2,27 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Con"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="2dp">
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000000"
+        android:background="#FFFFFFFF"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ItemStampImage"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginLeft="2.5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="2.5dp"
+        android:layout_height="200dp"
+        android:backgroundTint="#4D626262"
         android:hapticFeedbackEnabled="false"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,21 +33,40 @@
 
     <TextView
         android:id="@+id/ItemStampText"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="16dp"
-        android:fontFamily="@font/jua"
-        android:text="Place, Date"
-        android:textAllCaps="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#000000"
-        android:textColorHighlight="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
-        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="@+id/ItemStampImage"
-        app:layout_constraintTop_toTopOf="@+id/ItemStampImage" />
+        app:layout_constraintTop_toTopOf="@+id/ItemStampImage"
+        app:layout_constraintVertical_bias="0.394" />
+
+    <TextView
+        android:id="@+id/ItemStampArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="area"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/ItemStampDistrict"
+        app:layout_constraintTop_toBottomOf="@+id/ItemStampText" />
+
+    <TextView
+        android:id="@+id/ItemStampDistrict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="district"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemStampText" />
 
     <TextView
         android:id="@+id/ItemStampMemo"
@@ -60,6 +80,7 @@
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/ItemStampImage"
         app:layout_constraintEnd_toEndOf="@+id/ItemStampImage"
         app:layout_constraintHorizontal_bias="1.0"
@@ -68,7 +89,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000000"
+        android:background="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

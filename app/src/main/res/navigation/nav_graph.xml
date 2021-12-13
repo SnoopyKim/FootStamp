@@ -16,6 +16,9 @@
         android:name="project.android.footstamp.fragment.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_gallery_to_post"
+            app:destination="@id/post" />
     </fragment>
     <fragment
         android:id="@+id/post"

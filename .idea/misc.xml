@@ -17,26 +17,66 @@
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/bg_spinner_area.xml" value="0.5697916666666667" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/radius.xml" value="0.2861111111111111" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_gray.xml" value="0.31574074074074077" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/radius_ref.xml" value="0.42962962962962964" />
+        <entry key="..\:/FootStamp/app/src/main/res/drawable/textborder.xml" value="0.565625" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_board_inside.xml" value="0.553125" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_edit.xml" value="0.5492307692307692" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_gallery.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.225" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.5492307692307692" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_post.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/activity_splash.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/activity_view.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/bg_spinner_area.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/comment_model.xml" value="0.2861111111111111" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog2.xml" value="0.15092592592592594" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/custom_dialog3.xml" value="0.5536458333333333" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.25" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_view.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.2796296296296296" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_setting.xml" value="0.5494791666666666" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_view.xml" value="0.5338865836791148" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/fragment_view2.xml" value="0.5329441201000834" />
         <entry key="..\:/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.31296296296296294" />
-        <entry key="..\:/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.5536458333333333" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/item_view_list.xml" value="0.5" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/scene_map_area.xml" value="0.5" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/scene_map_district.xml" value="0.3111111111111111" />
+        <entry key="..\:/FootStamp/app/src/main/res/layout/spinnerchoose.xml" value="0.5" />
         <entry key="..\:/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.5536458333333333" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/drawable/ic_post.xml" value="0.2125" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/activity_main.xml" value="0.26358695652173914" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/activity_post.xml" value="0.1984375" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_gallery.xml" value="0.20104166666666667" />
-        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.20208333333333334" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_map.xml" value="0.22" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_post.xml" value="0.25" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_view.xml" value="0.1734375" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/fragment_view2.xml" value="0.1734375" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/item_stamp_list.xml" value="0.2046875" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/scene_map_area.xml" value="0.33" />
+        <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/layout/scene_map_district.xml" value="0.25" />
         <entry key="..\:/SnoopyProject/FootStamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/Ryclia/.gradle/caches/transforms-3/55edd840421d8619399d9a899a8c8997/transformed/appcompat-1.3.1/res/layout/support_simple_spinner_dropdown_item.xml" value="0.5494791666666666" />
+        <entry key="..\:/Users/Ryclia/.gradle/caches/transforms-3/9a6d2f2d4c80d275f325f86bc9c2ae54/transformed/appcompat-1.3.1/res/layout/support_simple_spinner_dropdown_item.xml" value="0.5536458333333333" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5329441201000834" />
+      </ProjectState>
+    </option>
   </component>
 </project>

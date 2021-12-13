@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
-
+        binding.bottomNavigationView.setOnItemReselectedListener {  }
     }
 
     override fun onSupportNavigateUp(): Boolean {
