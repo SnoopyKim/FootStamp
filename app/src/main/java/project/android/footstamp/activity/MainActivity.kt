@@ -1,8 +1,6 @@
 package project.android.footstamp.activity
 
 import android.os.Bundle
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
-
+        binding.bottomNavigationView.setOnItemReselectedListener {  }
     }
 
     override fun onSupportNavigateUp(): Boolean {
