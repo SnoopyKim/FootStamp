@@ -1,9 +1,13 @@
 package project.android.footstamp.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -17,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import project.android.footstamp.R
 import project.android.footstamp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -50,6 +55,21 @@ class LoginActivity : AppCompatActivity() {
         binding.googleLogin.setOnClickListener {
             var GoJoin = true
             signIn()
+        }
+
+        binding.btnTerms.setOnClickListener {
+            val alert = AlertDialog.Builder(this).setTitle("개인정보 처리방침")
+            val scrollbar = ScrollView(this)
+            val textView = TextView(this)
+            textView.setText(resources.getString(R.string.privacy_terms_value))
+            textView.setPadding(30, 30, 30, 30)
+            val view = LinearLayout(this)
+            view.orientation = LinearLayout.VERTICAL
+            view.addView(textView)
+            scrollbar.addView(view)
+            alert.setView(scrollbar).setPositiveButton("확인", DialogInterface.OnClickListener { dialog, id ->
+
+            }).create().show()
         }
 
 //        회원가입 버튼
