@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -83,7 +84,7 @@ class SettingFragment : Fragment() {
         //로그아웃 구현
 
         binding.logOutBtn.setOnClickListener{
-            auth.signOut()
+            Logout()
             val intent = Intent(context, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
@@ -158,31 +159,37 @@ class SettingFragment : Fragment() {
         val alertDialog = mBuilder.show()
         alertDialog.findViewById<Button>(R.id.dyes)?.setOnClickListener {
             val user = Firebase.auth.currentUser!!
+            val uid = FBAuth.getUid()
+            Logout()
             //회원아이디 삭제
             user.delete()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(context,"삭제되었습니다",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),"탈퇴되었습니다",Toast.LENGTH_SHORT).show()
+                            alertDialog.dismiss()
+                            val intent = Intent(context, LoginActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
                         }
                     }
             //데이터삭제
-            val uid = FBAuth.getUid()
             FBRef.uidRef.child(uid).removeValue()
-            FBRef.boardRef.child(uid).removeValue()
             FBRef.nicknameRef.child(uid).removeValue()
-//            if (FBRef.commentRef.child(uid)) 댓글삭제
 
-            alertDialog.dismiss()
-            val intent = Intent(context, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-
+//            FBRef.boardRef.
+//            FBRef.commentRef.child(uid).removeValue()
         }
         alertDialog.findViewById<Button>(R.id.dno)?.setOnClickListener {
             alertDialog.dismiss()
         }
     }
-    private fun getNickName(){
-        val uid = FBAuth.getUid()
+    private fun Logout(){
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("591458789988-8q5k10cud95t39tpeml69vgkpamm41ho.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        auth.signOut()
+        GoogleSignIn.getClient(context,gso).signOut()
     }
+
 }

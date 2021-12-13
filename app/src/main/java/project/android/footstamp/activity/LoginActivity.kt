@@ -20,12 +20,12 @@ import com.google.firebase.ktx.Firebase
 import project.android.footstamp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
-    final val RC_SIGN_IN = 1
+    val RC_SIGN_IN = 1
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    var GoJoin = false
+//    var GoJoin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.googleLogin.setOnClickListener {
-            var GoJoin = true
+//            var GoJoin = true
             signIn()
         }
 
