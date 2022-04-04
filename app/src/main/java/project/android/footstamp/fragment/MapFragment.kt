@@ -10,7 +10,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.transition.Scene
 import androidx.transition.TransitionManager
@@ -33,7 +32,7 @@ import project.android.footstamp.view.MapView
 import kotlin.random.Random
 
 
-class MapFragment : Fragment() {
+class MapFragment : androidx.fragment.app.Fragment() {
 
     val myRef = FirebaseDatabase.getInstance().getReference("uid")
     lateinit var postsOrigin: List<PostModel>

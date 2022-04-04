@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
-//    var GoJoin = false
+    var GoJoin = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -41,10 +42,6 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
         setContentView(binding.root)
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-//        binding.passBtn.setOnClickListener{
-//            val intent= Intent(baseContext, MainActivity::class.java)
-//            startActivity(intent)
-//        }
 
         auth.addAuthStateListener {
             if (it.currentUser !=null) {
@@ -53,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.googleLogin.setOnClickListener {
-//            var GoJoin = true
+//
             signIn()
         }
 
@@ -68,79 +65,73 @@ class LoginActivity : AppCompatActivity() {
             view.addView(textView)
             scrollbar.addView(view)
             alert.setView(scrollbar).setPositiveButton("확인", DialogInterface.OnClickListener { dialog, id ->
-
             }).create().show()
         }
 
-//        회원가입 버튼
-//        binding.JoinBtn.setOnClickListener{
-//
-//
-//
-//            val email = binding.EmailArea.text.toString()
-//            val password = binding.PasswordArea.text.toString()
-//
-//            //값 확인
-//            if (email.isEmpty()){
-//                Toast.makeText(this,"이메일을 입력해주세요",Toast.LENGTH_SHORT).show()
-//                GoJoin = false
-//            }
-//            if (password.isEmpty()){
-//                Toast.makeText(this,"비밀번호를 입력해주세요",Toast.LENGTH_SHORT).show()
-//                GoJoin = false
-//            }
-//            if (!email.contains("@")){
-//                Toast.makeText(this,"이메일 양식을 확인하세요",Toast.LENGTH_SHORT).show()
-//                GoJoin = false
-//            }
-//            if (password.length < 6){
-//                Toast.makeText(this,"비밀번호를 6자리 이상으로 설정해주세요",Toast.LENGTH_SHORT).show()
-//                GoJoin = false
-//            }
+        //회원가입 버튼
+        binding.joinBtn.setOnClickListener {
 
-//            회원가입
+            val email = binding.EmailArea.text.toString()
+            val password = binding.PasswordArea.text.toString()
 
-//        val email = binding.EmailArea.text.toString()
-//        val password = binding.PasswordArea.text.toString()
 
-//            if (GoJoin){
-//            auth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this) { task ->
-//                    if (task.isSuccessful) {
-//                        // 로그인 성공시
-//                        Toast.makeText(baseContext, "회원가입 성공",Toast.LENGTH_SHORT).show()
-//
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                        startActivity(intent)
-//                    } else {
-//                        // 로그인 실패시
-//                        Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
+            //값 확인
+            if (email.isEmpty()) {
+                Toast.makeText(this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show()
+                GoJoin = false
+            }
+            if (password.isEmpty()) {
+                Toast.makeText(this, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show()
+                GoJoin = false
+            }
+            if (!email.contains("@")) {
+                Toast.makeText(this, "이메일 양식을 확인하세요", Toast.LENGTH_SHORT).show()
+                GoJoin = false
+            }
+            if (password.length < 6) {
+                Toast.makeText(this, "비밀번호를 6자리 이상으로 설정해주세요", Toast.LENGTH_SHORT).show()
+                GoJoin = false
+            }
 
+
+            if (GoJoin) {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // 로그인 성공시
+                                Toast.makeText(baseContext, "회원가입 성공! 아이디와 비밀번호를 잊지마세요!", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                        } else {
+                            // 로그인 실패시
+                            Toast.makeText(baseContext, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+        }
 
 ////        로그인
-//        binding.LoginBtn.setOnClickListener {
-//
-//            val email = binding.EmailArea.text.toString()
-//            val password = binding.PasswordArea.text.toString()
-//            //로그인 구현
-//            auth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this) { task ->
-//                    if (task.isSuccessful) {
-//                        // 로그인 성공
-//                        Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                        startActivity(intent)
-//                    } else {
-//                        // 로그인 실패
-//                        Toast.makeText(this,"로그인 실패",Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//        }
+        binding.loginBtn.setOnClickListener {
+
+            val email = binding.EmailArea.text.toString()
+            val password = binding.PasswordArea.text.toString()
+            //로그인 구현
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // 로그인 성공
+                        Toast.makeText(this,"로그인 성공",Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    } else {
+                        // 로그인 실패
+                        Toast.makeText(this,"로그인 실패",Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
 
     }
     private fun signIn() {
